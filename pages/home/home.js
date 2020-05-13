@@ -1,5 +1,6 @@
 // pages/home/home.js
-import {config} from "../../config/config";
+
+import {Theme} from "../../model/theme";
 
 Page({
 
@@ -14,22 +15,11 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-      wx.request({
-          url: `${config.apiBaseUrl}/v1/theme/by/names`,
-          method: 'GET',
-          data: {
-              names: 't-1',
-          },
-          header: {
-              appkey: config.appkey
-          },
-          //this指向改变
-          success: res => {
-              this.setData({
-                  topTheme: res.data[0]
-              })
-          }
-      })
+      Theme.getHomeLocationA(data => {
+          this.setData({
+              topTheme: data[0]
+          })
+      });
   },
 
   /**
