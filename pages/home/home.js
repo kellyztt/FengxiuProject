@@ -1,6 +1,7 @@
 // pages/home/home.js
 
 import {Theme} from "../../model/theme";
+import {Banner} from "../../model/banner";
 
 Page({
 
@@ -8,19 +9,25 @@ Page({
    * Page initial data
    */
   data: {
-      topTheme: null,
+      themeA: null,
+      bannerB: null,
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: function (options) {
-      Theme.getHomeLocationA(data => {
-          this.setData({
-              topTheme: data[0]
-          })
-      });
+  onLoad: async function () {
+      initData();
   },
+
+    async initData(){
+        const themeA = await Theme.getHomeLocationA();
+        const bannerB = await Banner.getHomeLocationB();
+        this.setData({
+            themeA: themeA[0],
+            BannerB: bannerB
+        });
+    },
 
   /**
    * Lifecycle function--Called when page is initially rendered
