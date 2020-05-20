@@ -1,5 +1,21 @@
 <!--pages/home/home.wxml-->
 <view>
-    <image class="top-theme" src="{{themeA.entrance_img}}"></image>
+    <image class="top-theme" src="../image.png"></image>
+    <swiper class="swiper"
+            autoplay
+            interval="3000"
+            indicator-dots
+            indicator-active-color="#157658"
+            circular>
+        <block wx:for="{{bannerB.items}}">
+            <swiper-item>
+                <image class="swiper" src="{{item.img}}"></image>
+
+            </swiper-item>
+        </block>
+    </swiper>
+    <s-category-grid grid="{{grid}}"></s-category-grid>
+    <image class="activity" src="{{activityD.entrance_img}}"></image>
+
 </view>
 

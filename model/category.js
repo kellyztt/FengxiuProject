@@ -1,7 +1,7 @@
 import {Http} from "../utils/httpUtils";
 
 class Category{
-    static async getCatagoryGrid(){
+    static async getHomeLocationC(){
         return await Http.request({
             url: "/category/grid/all"
         })

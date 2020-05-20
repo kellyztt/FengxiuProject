@@ -1,0 +1,30 @@
+/* components/category-grid/index.wxss */
+.container{
+    width: 100%;
+    height: 320rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.inner-container{
+    width: 730rpx;
+    height: 300rpx;
+    border: 1px dashed #DCEBE6;
+}
+/*设置width是为了扩大触碰范围，只要不超过grid自动计算的大小就行*/
+.grid-item{
+    witdh:200rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.img{
+    height: 60rpx;
+    width: 60rpx;
+}
+.text{
+    margin-top: 6rpx;
+    font-size: 24rpx;
+    color: #333333;
+}

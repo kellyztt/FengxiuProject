@@ -1,3 +1,5 @@
+import {Http} from "../utils/httpUtils";
+
 class Banner{
     //get Banner
     static locationB = 'b-1';
