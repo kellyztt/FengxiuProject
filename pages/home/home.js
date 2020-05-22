@@ -28,12 +28,14 @@ Page({
   },
 
     async initData () {
-        const themes = await Theme.getThemes();
-        const themeA = themes.find(item => item.name === 't-1');
+        const theme = new Theme();
+        //after that, themes[] has data
+        await theme.getThemes();
+        const themeA = theme.getHomeLocationA();
         const bannerB = await Banner.getHomeLocationB();
         const gridC = await Category.getHomeLocationC();
         const activityD = await Activity.getHomeLocationD();
-        const themeE = themes.find(item => item.name === 't-2');
+        const themeE = theme.getHomeLocationE();
         this.setData({
             themeA,
             bannerB,
