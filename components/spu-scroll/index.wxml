@@ -1,2 +1,12 @@
 <!--components/spu-scroll/index.wxml-->
-<text>components/spu-scroll/index.wxml</text>
+<view class="container l-class">
+    <image class="title" src="{{theme.title_img}}"></image>
+    <scroll-view scroll-x class="scroll-view">
+        <view class="inner-container">
+            <block wx:for="{{spuList}}">
+                <s-scroll-item item="{{item}}" />
+            </block>
+        </view>
+    </scroll-view>
+</view>
+

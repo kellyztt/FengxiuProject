@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "s-scroll-item": "/components/scroll-item/index"
+  }
 }

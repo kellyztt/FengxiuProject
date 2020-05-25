@@ -1,1 +1,19 @@
 /* components/spu-scroll/index.wxss */
+.container{
+    padding: 42rpx 0 34rpx 28rpx;
+    background-color: #fff;
+}
+.inner-container{
+    display: flex;
+    flex-direction: row;
+}
+.title{
+    width: 694rpx;
+    height: 90rpx;
+}
+
+.scroll-view{
+    margin-top: 28rpx;
+    display: flex;
+    flex-direction: row;
+}

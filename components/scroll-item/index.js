@@ -1,14 +1,10 @@
-// components/spu-scroll/index.js
-
+// components/scroll-item/index.js
 Component({
   /**
    * Component properties
    */
-  externalClasses: ['l-class'],
   properties: {
-    theme: Object,
-    spuList: Array
-
+    item:Object
   },
 
   /**

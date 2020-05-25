@@ -1,0 +1,11 @@
+<!--components/scroll-item/index.wxml-->
+<wxs src="../../miniprogram_npm/lin-ui/filter/string.wxs" module="s"></wxs>
+<view class="container">
+    <image class="spu-image" src="{{item.img}}"></image>
+    <text class="spu-text">{{item.title.length >= 7 ? s.substring(item.title, 0, 8) + '...' : item.title}}</text>
+    <l-price value="{{item.price}}" color="#157658"
+    l-unit-class="price-unit"
+    l-value-class="price-value"></l-price>
+
+</view>
+

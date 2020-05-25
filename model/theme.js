@@ -27,13 +27,23 @@ class Theme{
         return this.themes.find(item => item.name === Theme.locationE);
     }
 
-    getHomeLocationESpu
-    async getThemeSpu(name){
-        return await Http.request({
-            url: `/theme/${name}/{name}/with_spu`
+    getHomeLocationESpu(){
+        return this.getThemeSpuByName(Theme.locationE);
+    }
+
+    getThemeSpuByName(name){
+        return Http.request({
+            url: `/theme/name/${name}/with_spu`
         })
     }
 
+    getHomeLocationF(){
+        return this.themes.find(item => item.name === Theme.locationF);
+    }
+
+    getHomeLocationH(){
+        return this.themes.find(item => item.name === Theme.locationH);
+    }
 
 }
 export {
