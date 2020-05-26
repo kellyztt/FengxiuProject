@@ -5,6 +5,12 @@ class Paging{
     count;
     req;
     lock = false;
+    url;
+    /*
+    * req={
+    * url: "",
+    * data:""
+    * }*/
     constructor(req, count = 10, start = 0){
         this.req = req;
         this.count = count;
@@ -14,7 +20,7 @@ class Paging{
     getMoreData(){
         //1. getLock
         if (!this._getLock()){
-            //TODO: wait
+            //TODO: wait?
             return;
         }
         //2. request
@@ -40,16 +46,17 @@ class Paging{
         }
     }
 
-    async _actualGetData(){
-        return await Http.request({
-            url: this.url,
-            data: {
-                start: this.start,
-                count: this.count
-            }
-        })
+    _actualGetData(){
+        const req = this._getCurrentReq();
+        const paging = Http.request(req);
     }
+    //Todo: why append parameters in the url? not using data parameter?
     _getCurrentReq(){
-
+        let url = this.url;
+        const params = `start=${this.start}&count=${this.count}`;
+        url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
+        url += params;
+        this.req.url = url;
+        return this.req;
     }
 }

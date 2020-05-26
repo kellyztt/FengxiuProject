@@ -2,23 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e62d7b3-a5b4-480e-9ce3-b715166c3a3b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/model/spu.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/paging.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/wxss/public.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.json" beforeDir="false" afterPath="$PROJECT_DIR$/app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/app.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/category-grid/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/components/category-grid/index.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/spu-scroll/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/spu-scroll/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/spu-scroll/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/components/spu-scroll/index.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/spu-scroll/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/spu-scroll/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/spu-scroll/index.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/components/spu-scroll/index.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/banner.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/model/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/home.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/home.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/home.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/home/home.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/pages/home/home.wxss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/httpUtils.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/httpUtils.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/paging.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/paging.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -53,11 +38,23 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/utils/paging.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+            <state relative-caret-position="234">
+              <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/httpUtils.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,7 +79,6 @@
         <option value="$PROJECT_DIR$/miniprogram/pages/home/home.wxss" />
         <option value="$PROJECT_DIR$/miniprogram/pages/home/home.js" />
         <option value="$PROJECT_DIR$/utils/util.js" />
-        <option value="$PROJECT_DIR$/utils/httpUtils.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/components/category-grid/index.js" />
         <option value="$PROJECT_DIR$/model/category-grid.js" />
@@ -116,12 +112,13 @@
         <option value="$PROJECT_DIR$/model/spu.js" />
         <option value="$PROJECT_DIR$/pages/home/home.js" />
         <option value="$PROJECT_DIR$/utils/paging.js" />
+        <option value="$PROJECT_DIR$/utils/httpUtils.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="169" />
-    <option name="y" value="119" />
+    <option name="x" value="396" />
+    <option name="y" value="27" />
     <option name="width" value="1280" />
     <option name="height" value="708" />
   </component>
@@ -193,12 +190,12 @@
       <updated>1589188706535</updated>
       <workItem from="1589188709551" duration="1007000" />
       <workItem from="1589189821138" duration="931000" />
-      <workItem from="1589192875280" duration="34648000" />
+      <workItem from="1589192875280" duration="35304000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36586000" />
+    <option name="totallyTimeSpent" value="37242000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -210,7 +207,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="169" y="119" width="1280" height="708" extended-state="0" />
+    <frame x="396" y="27" width="1280" height="708" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.23828435" />
@@ -507,16 +504,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/httpUtils.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="6" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pages/home/home.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -537,8 +524,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/utils/paging.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+        <state relative-caret-position="234">
+          <caret line="50" column="31" lean-forward="true" selection-start-line="50" selection-start-column="31" selection-end-line="50" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/httpUtils.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="20" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
