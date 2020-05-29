@@ -22,7 +22,7 @@
     <image src="{{themeH.entrance_img}}" class="fashion"></image>
     <view class="spu-bottom">
         <image src="/assets/home/title.png" class="spu-bottom-title"></image>
-        <l-water-flow generic: l-water-flow-item="s-spu-preview" />
+        <l-water-flow generic:l-water-flow-item="s-spu-preview" ></l-water-flow>
     </view>
 
 </view>

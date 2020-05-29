@@ -6,6 +6,8 @@ class Paging{
     req;
     lock = false;
     url;
+    moreData = true;
+    accumulator = [];
     /*
     * req={
     * url: "",
@@ -15,18 +17,23 @@ class Paging{
         this.req = req;
         this.count = count;
         this.start = start;
+        this.url = req.url;
     }
 
-    getMoreData(){
+    async getMoreData(){
+        if (!this.moreData){
+            return;
+        }
         //1. getLock
         if (!this._getLock()){
             //TODO: wait?
             return;
         }
         //2. request
-        this._actualGetData();
+        const data = await this._actualGetData();
         //3. releaseLock
-        this._releaseLock()
+        this._releaseLock();
+        return data;
     }
 
     //private function
@@ -46,17 +53,52 @@ class Paging{
         }
     }
 
-    _actualGetData(){
+    async _actualGetData(){
         const req = this._getCurrentReq();
-        const paging = Http.request(req);
+        const paging = await Http.request(req);
+        //if server return no response
+        if(!paging){
+            return null;
+        }
+        const {total, page, total_page, items} = paging;
+        // do not have data
+        if (total === 0){
+            return {
+                empty: true,
+                items,
+                moreData: false,
+                accumulator: []
+            }
+        }
+        this.moreData = Paging._moreData(page, total_page);
+        if (this.moreData){
+            this.start += this.count;
+        }
+        this.accumulator = this.accumulator.concat(items);
+        return {
+            empty: false,
+            items,
+            moreData: this.moreData,
+            accumulator: this.accumulator
+        }
     }
+
+    static _moreData(pageNum, totalPage){
+        return pageNum < totalPage - 1;
+    }
+
     //Todo: why append parameters in the url? not using data parameter?
     _getCurrentReq(){
-        let url = this.url;
+        let url = this.req.url;
         const params = `start=${this.start}&count=${this.count}`;
-        url = url.indexOf("?") >= 0 ? url + "&" : url + "?";
+        console.log("url", url);
+        url = url.includes("?") ? url + "&" : url + "?";
         url += params;
         this.req.url = url;
         return this.req;
     }
+}
+
+export {
+    Paging
 }
