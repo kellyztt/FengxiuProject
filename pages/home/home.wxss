@@ -31,6 +31,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #fff;
+    padding-top: 30rpx;
 }
 .spu-bottom-title{
     width: 690rpx;

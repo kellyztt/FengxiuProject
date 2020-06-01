@@ -70,7 +70,7 @@ class Paging{
                 accumulator: []
             }
         }
-        this.moreData = Paging._moreData(page, total_page);
+        this.moreData = await Paging._moreData(page, total_page);
         if (this.moreData){
             this.start += this.count;
         }
@@ -89,9 +89,8 @@ class Paging{
 
     //Todo: why append parameters in the url? not using data parameter?
     _getCurrentReq(){
-        let url = this.req.url;
+        let url = this.url;
         const params = `start=${this.start}&count=${this.count}`;
-        console.log("url", url);
         url = url.includes("?") ? url + "&" : url + "?";
         url += params;
         this.req.url = url;

@@ -20,6 +20,8 @@ Page({
       themeF: null,
       bannerG: null,
       themeH: null,
+      spuPaging: null,
+      loadingType: 'loading'
   },
 
 
@@ -66,6 +68,7 @@ Page({
 
      async initBottomSpuList(){
         const paging = SpuPaging.getLatestPaging();
+        this.data.spuPaging = paging;
         const data = await paging.getMoreData();
         if (!data){
             return;
@@ -110,8 +113,17 @@ Page({
   /**
    * Called when page reach bottom
    */
-  onReachBottom: function () {
-
+  onReachBottom: async function () {
+      const data = await this.data.spuPaging.getMoreData();
+      if (!data){
+          return;
+      }
+      wx.lin.renderWaterFlow(data.items);
+      if (!data.moreData){
+          this.setData({
+              loadingType: 'end'
+          })
+      }
   },
 
   /**
