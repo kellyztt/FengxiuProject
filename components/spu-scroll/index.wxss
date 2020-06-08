@@ -2,6 +2,8 @@
 .container{
     padding: 42rpx 0 34rpx 28rpx;
     background-color: #fff;
+    display: flex;
+    flex-direction: column;
 }
 .inner-container{
     display: flex;

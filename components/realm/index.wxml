@@ -1,0 +1,10 @@
+<!--components/realm/index.wxml-->
+<view class="container">
+    <view>
+        <image></image>
+    </view>
+    <block wx:for="{{fenceGroup}}" wx:key="{{index}}">
+        <s-fence fence="{{item}}"></s-fence>
+    </block>
+
+</view>

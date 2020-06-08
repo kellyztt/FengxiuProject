@@ -27,7 +27,7 @@ Component({
     },
     placement: {
       type: String,
-      value: 'column', //column row
+      value: 'column', //column specs
     },
   },
   data: {

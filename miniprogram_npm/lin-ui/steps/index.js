@@ -20,7 +20,7 @@ Component({
   properties: {
     direction: {
       type: String,
-      value: 'row'
+      value: 'specs'
     },
     activeIndex: {
       type: Number,

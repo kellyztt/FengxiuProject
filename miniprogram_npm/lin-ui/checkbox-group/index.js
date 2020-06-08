@@ -18,7 +18,7 @@ Component({
     // 选项的排列方式 一行显示 or 多行显示
     placement: {
       type: String,
-      value: 'column', //column row
+      value: 'column', //column specs
     },
     // 最多选中值
     maxSelected: {

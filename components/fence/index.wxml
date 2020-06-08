@@ -1,0 +1,11 @@
+<!--components/fence/index.wxml-->
+<view class="container">
+    <view class="title">
+        {{fence.title}}
+    </view>
+    <view>
+        <block wx:for="{{fence.cells}}" wx:key="key">
+            <s-cell cell="{{item}}"></s-cell>
+        </block>
+    </view>
+</view>
