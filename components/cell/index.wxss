@@ -1,1 +1,12 @@
 /* components/cell/index.wxss */
+.container{
+    border: 2rpx solid #333;
+}
+.inner-container{
+    height: 60rpx;
+    padding: 0 15rpx;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: #fff;
+}
