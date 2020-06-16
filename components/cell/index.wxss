@@ -1,12 +1,30 @@
 /* components/cell/index.wxss */
 .container{
     border: 2rpx solid #333;
+    padding: 2rpx;
+    height: 60rpx;
+    box-sizing: border-box;
 }
 .inner-container{
-    height: 60rpx;
+    height: 100%;
     padding: 0 15rpx;
     display: flex;
     flex-direction: row;
     align-items: center;
     background-color: #fff;
+    font-size: 24rpx;
+}
+
+.forbidden{
+    border: 2rpx dashed #bbb;
+    color: #bbb;
+}
+
+.s-outer{
+    border: 2rpx solid #157658;
+}
+
+.s-inner{
+    background-color: #157658;
+    color: #fff;
 }

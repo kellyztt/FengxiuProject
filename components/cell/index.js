@@ -4,7 +4,9 @@ Component({
    * Component properties
    */
   properties: {
-    cell: Object
+    cell: Object,
+    x: Number,
+    y: Number
   },
 
   /**
@@ -18,6 +20,15 @@ Component({
    * Component methods
    */
   methods: {
-
+    onTap(event){
+      this.triggerEvent('cellTap', {
+        cell: this.properties.cell,
+        x: this.properties.x,
+        y: this.properties.y
+      }, {
+        bubbles: true,
+        composed: true
+      });
+    }
   }
 })

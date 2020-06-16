@@ -43,6 +43,14 @@ class FenceGroup{
     //     return fence;
     // }
 
+    eachCell(cb){
+        for (let i = 0; i < this.fences.length; i++){
+            for (let j = 0; j < this.fences[i].length; j++){
+                cb(fences[i][j], i, j);
+            }
+        }
+    }
+
     _createMatrix(skuList){
         const matrix = [];
         skuList.forEach(item => {

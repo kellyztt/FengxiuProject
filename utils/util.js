@@ -31,7 +31,25 @@ const promisic = func => {
   }
 }
 
+const combination = function (arr, size){
+  var result = [];
+  function _(t, a, n){
+    if (n === 0){
+      result[result.length] = t;
+      return;
+    }
+    for (var i = 0, l = a.length  - n; i <= l; i++){
+      var b = t.slice();
+      b.push(a[i]);
+      _(b, a.slice(i + 1), n - 1);
+    }
+  }
+  _([], arr, size);
+  return result;
+}
+
 module.exports = {
   formatTime: formatTime,
-  promisic: promisic
+  promisic: promisic,
+  combination: combination,
 }

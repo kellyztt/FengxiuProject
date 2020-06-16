@@ -5,7 +5,7 @@
     </view>
     <view class="row-container">
         <block wx:for="{{fence.cells}}" wx:key="key">
-            <s-cell cell="{{item}}" class="cell"></s-cell>
+            <s-cell x="{{x}}" y="{{index}}"cell="{{item}}" class="cell"></s-cell>
         </block>
     </view>
     <view class="hr"></view>
