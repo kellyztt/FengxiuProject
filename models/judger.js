@@ -1,6 +1,7 @@
 import {SkuCode} from "./sku-code";
 import {CellStatus} from "../core/enum";
 import {SkuPending} from "./sku-pending";
+import {Joiner} from "../utils/joiner";
 
 class Judger{
     fenceGroup;
@@ -26,15 +27,38 @@ class Judger{
 
     judge(cell, x, y){
         this._changeCurrentCellStatus(cell, x, y);
-        this.fenceGroup.eachCell(this._changeOtherCellStatus);
+
+
+        this.fenceGroup.eachCell((cell, x, y) => {
+            const path = this._findPotentialPath(cell, x, y);
+            console.log(path);
+        });
     }
 
-    _changeOtherCellStatus(cell, x, y) {
 
-    }
-
+    //选了一个cell之后，判断其他cell的状态
     _findPotentialPath(cell, x, y){
+        const joiner = new Joiner('#');
+        for (let i = 0; i < this.fenceGroup.fences.length; i++){
+            const selected = this.skuPending.findSelectedCellByX(i);
+            //当前行，遍历到的行
+            if (x === i){
+                const cellCode = this._getCellCode(cell.spec);
+                joiner.join(cellCode);
+            } else {
+                //判断其他行选中的元素
+                if(selected){
+                    const selectedCellCode = this._getCellCode(selected.spec);
+                    joiner.join(selectedCellCode);
+                }
+            }
+        }
+        return joiner.getStr();
 
+    }
+
+    _getCellCode(spec){
+        return spec.key_id + '-' + spec.value_id;
     }
 
     _changeCurrentCellStatus(cell, x, y){

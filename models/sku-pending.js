@@ -15,6 +15,10 @@ class SkuPending{
     removeCell(x){
         this.pending[x] = null;
     }
+
+    findSelectedCellByX(x){
+        return this.pending[x];
+    }
 }
 
 export {

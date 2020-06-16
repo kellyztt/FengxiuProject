@@ -45,8 +45,8 @@ class FenceGroup{
 
     eachCell(cb){
         for (let i = 0; i < this.fences.length; i++){
-            for (let j = 0; j < this.fences[i].length; j++){
-                cb(fences[i][j], i, j);
+            for (let j = 0; j < this.fences[i].cells.length; j++){
+                 cb(this.fences[i].cells[j], i, j);
             }
         }
     }
