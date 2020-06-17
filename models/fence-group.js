@@ -51,6 +51,14 @@ class FenceGroup{
         }
     }
 
+    getDefaultSku(){
+        const defaultSkuId = this.spu.default_sku_id;
+        if (!defaultSkuId){
+            return;
+        }
+        return this.skuList.find(item => item.id === defaultSkuId);
+    }
+
     _createMatrix(skuList){
         const matrix = [];
         skuList.forEach(item => {

@@ -48,3 +48,9 @@
     margin-top: 6rpx;
     color: #888;
 }
+
+.price-row{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}

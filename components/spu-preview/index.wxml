@@ -20,7 +20,6 @@
                      color="#999"
                      size="24"
                      value="{{p.slashedPrice(data.price, data.discount_price).price}}"
-                     deleted
                      l-class="discount-price"
             />
         </view>

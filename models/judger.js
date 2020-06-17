@@ -23,15 +23,22 @@ class Judger{
 
     _initSkuPending(){
         this.skuPending = new SkuPending();
+        
     }
 
     judge(cell, x, y){
         this._changeCurrentCellStatus(cell, x, y);
-
-
         this.fenceGroup.eachCell((cell, x, y) => {
             const path = this._findPotentialPath(cell, x, y);
-            console.log(path);
+            if (!path){
+                return;
+            }
+            const inDict = this._isInDict(path);
+            if (!inDict){
+                this.fenceGroup.fences[x].cells[y].status = CellStatus.FORBIDDEN;
+            } else {
+                this.fenceGroup.fences[x].cells[y].status = CellStatus.WAITING;
+            }
         });
     }
 
@@ -43,6 +50,9 @@ class Judger{
             const selected = this.skuPending.findSelectedCellByX(i);
             //当前行，遍历到的行
             if (x === i){
+                if (this.skuPending.isSelected(cell, x)){
+                    return;
+                }
                 const cellCode = this._getCellCode(cell.spec);
                 joiner.join(cellCode);
             } else {
@@ -59,6 +69,10 @@ class Judger{
 
     _getCellCode(spec){
         return spec.key_id + '-' + spec.value_id;
+    }
+
+    _isInDict(path){
+        return this.pathDict.includes(path);
     }
 
     _changeCurrentCellStatus(cell, x, y){
