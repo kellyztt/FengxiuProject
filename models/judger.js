@@ -2,6 +2,7 @@ import {SkuCode} from "./sku-code";
 import {CellStatus} from "../core/enum";
 import {SkuPending} from "./sku-pending";
 import {Joiner} from "../utils/joiner";
+import {Cell} from "./cell";
 
 class Judger{
     fenceGroup;
@@ -23,11 +24,25 @@ class Judger{
 
     _initSkuPending(){
         this.skuPending = new SkuPending();
-        
+        const defaultSku = this.fenceGroup.getDefaultSku();
+        if (!defaultSku){
+            return;
+        }
+        this.skuPending.init(defaultSku);
+        this._initSelectedCell();
+        this.judge(true);
     }
 
-    judge(cell, x, y){
-        this._changeCurrentCellStatus(cell, x, y);
+    _initSelectedCell(){
+        this.skuPending.pending.forEach(cell => {
+            this.fenceGroup.setCellStatusById(cell.id, CellStatus.SELECTED);
+        })
+    }
+
+    judge(init=false, cell, x, y){
+        if (!init){
+            this._changeCurrentCellStatus(cell, x, y);
+        }
         this.fenceGroup.eachCell((cell, x, y) => {
             const path = this._findPotentialPath(cell, x, y);
             if (!path){
@@ -35,9 +50,9 @@ class Judger{
             }
             const inDict = this._isInDict(path);
             if (!inDict){
-                this.fenceGroup.fences[x].cells[y].status = CellStatus.FORBIDDEN;
+                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.FORBIDDEN);
             } else {
-                this.fenceGroup.fences[x].cells[y].status = CellStatus.WAITING;
+                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.WAITING);
             }
         });
     }
@@ -78,10 +93,10 @@ class Judger{
     _changeCurrentCellStatus(cell, x, y){
         if (cell.status === CellStatus.WAITING){
             this.skuPending.insertCell(cell, x);
-            this.fenceGroup.fences[x].cells[y].status = CellStatus.SELECTED;
+            this.fenceGroup.setCellStatusByXY(x, y, CellStatus.SELECTED);
         } else if (cell.status === CellStatus.SELECTED){
             this.skuPending.removeCell(x);
-            this.fenceGroup.fences[x].cells[y].status = CellStatus.WAITING
+            this.fenceGroup.setCellStatusByXY(x, y, CellStatus.WAITING);
         }
     }
 }

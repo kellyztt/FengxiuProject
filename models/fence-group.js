@@ -1,5 +1,6 @@
 import {Matrix} from "./matrix";
 import {Fence} from "./fence";
+import {CellStatus} from "../core/enum";
 
 class FenceGroup{
     spu;
@@ -57,6 +58,18 @@ class FenceGroup{
             return;
         }
         return this.skuList.find(item => item.id === defaultSkuId);
+    }
+
+    setCellStatusById(cellId, status){
+        this.eachCell((cell) => {
+            if (cellId === cell.id){
+                cell.status = status;
+            }
+        })
+    }
+
+    setCellStatusByXY(x,y, status){
+        this.fences[x].cells[y].status = status;
     }
 
     _createMatrix(skuList){

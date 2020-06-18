@@ -1,8 +1,17 @@
+import {Cell} from "./cell";
+
 class SkuPending{
 
     pending = [];
     constructor(){
 
+    }
+    init(sku){
+        const specs = sku.specs;
+        for (let i = 0; i < specs.length; i++){
+            const cell = new Cell(specs[i]);
+            this.insertCell(cell, i);
+        }
     }
 
     insertCell(cell, x){

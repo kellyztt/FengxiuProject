@@ -15,7 +15,9 @@ Component({
    */
   data: {
     fences: Object,
-    judger: Object
+    judger: Object,
+    previewImage: String,
+    title: String
   },
   observers: {
     "spu": function(spu){
@@ -27,6 +29,12 @@ Component({
       fenceGroup.initFences();
       const judger = new Judger(fenceGroup);
       this.data.judger = judger;
+      const defaultSku = fenceGroup.getDefaultSku();
+      if (defaultSku){
+        this.bindSkuData(defaultSku)
+      } else {
+        this.bindSpuData()
+      }
       this.bindInitData(fenceGroup);
     }
   },
@@ -35,6 +43,21 @@ Component({
    * Component methods
    */
   methods: {
+    bindSpuData: function(){
+      const spu = this.properties.spu;
+      this.setData({
+        previewImage: spu.img,
+        title: spu.title
+      })
+    },
+
+    bindSkuData(sku){
+      this.setData({
+        previewImage: sku.img,
+        title: sku.title
+      })
+    },
+
     bindInitData: function (fenceGroup) {
       this.setData({
         fences: fenceGroup.fences
@@ -44,7 +67,7 @@ Component({
     onCellTap(event){
       const { cell, x, y } = event.detail;
       const judger = this.data.judger;
-      judger.judge(cell, x, y);
+      judger.judge(false, cell, x, y)
       this.setData({
         fences: judger.fenceGroup.fences
       });

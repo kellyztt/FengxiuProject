@@ -1,9 +1,9 @@
 <!--components/realm/index.wxml-->
 <view class="container">
     <view class="sku-preview">
-        <image class="sku-img"></image>
+        <image src="{{previewImage}}"class="sku-img"></image>
         <view class="sku-description">
-            <text class="title">青芒色.灌篮高手</text>
+            <text class="title">{{title}}</text>
             <view>
                 <view class="price-row">
                     <l-price color="#157658"
