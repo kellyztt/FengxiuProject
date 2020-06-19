@@ -17,7 +17,10 @@ Component({
     fences: Object,
     judger: Object,
     previewImage: String,
-    title: String
+    title: String,
+    price: String,
+    discountPrice: String,
+    stock: Number
   },
   observers: {
     "spu": function(spu){
@@ -47,14 +50,22 @@ Component({
       const spu = this.properties.spu;
       this.setData({
         previewImage: spu.img,
-        title: spu.title
+        title: spu.title,
+        price: spu.price,
+        discountPrice: spu.discount_price
       })
     },
 
     bindSkuData(sku){
+      console.log(sku)
+      console.log(sku.stock)
       this.setData({
         previewImage: sku.img,
-        title: sku.title
+        title: sku.title,
+        price: sku.price,
+        discountPrice: sku.discount_price,
+        //only sku has stock
+        stock: sku.stock
       })
     },
 

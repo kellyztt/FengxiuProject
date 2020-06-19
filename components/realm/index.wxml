@@ -1,4 +1,5 @@
 <!--components/realm/index.wxml-->
+<wxs src="../../wxs/price.wxs" module="p" />
 <view class="container">
     <view class="sku-preview">
         <image src="{{previewImage}}"class="sku-img"></image>
@@ -10,14 +11,17 @@
                              valur-size="28"
                              unit-size="20"
                              autofix
-                             value="299"></l-price>
+                             value="{{p.mainPrice(price,discountPrice).price}}"></l-price>
                     <l-price
+                            wx:if="{{p.slashedPrice(price, discountPrice).display}}"
                              color="#999"
                              size="24"
-                             value="399"
+                             value="{{p.slashedPrice(price, discountPrice).price}}"
                              deleted
                              l-class="discount-price"
                     />
+                    <view wx:if="{{stock && stock >= 10}}" class="stock">库存: {{stock}}</view>
+                    <view wx:if="{{stock && stock < 10 && stock != 0}}" class="stock-pinch">仅剩: {{stock}}件</view>
                 </view>
                 <view class="sku-pending">
                     <text>请选择: </text>
