@@ -12,6 +12,10 @@ class Cell{
         this.id = spec.value_id;
         this.spec = spec;
     }
+
+    getSkuCode(){
+        return this.spec.key_id + '-' + this.spec.value_id;
+    }
 }
 export {
     Cell

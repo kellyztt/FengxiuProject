@@ -24,10 +24,10 @@
                      <view wx:if="{{stock && stock < 10 && stock != 0}}" class="stock-pinch">仅剩: {{stock}}件</view>
                 </view>
                 <view class="sku-pending" wx:if="{{!noSpec}}">
-                    <text wx:if="{{!isSKUIntact}}">请选择: </text>
+                    <text wx:if="{{!skuIntact}}">请选择: </text>
                     <text wx:else>已选: </text>
-                    <text wx:if="{{!isSKUIntact}}">请选择规格值 </text>
-                    <text wx:else>已选规格值 </text>
+                    <text wx:if="{{!skuIntact}}">{{missingKeys}} </text>
+                    <text wx:else>{{currentValues}} </text>
                 </view>
             </view>
         </view>
@@ -36,5 +36,15 @@
     <block wx:for="{{fences}}" wx:key="{{index}}">
         <s-fence x="{{index}}" fence="{{item}}" bind:cellTap="onCellTap"></s-fence>
     </block>
+    <view class="counter-container">
+        <text class="text">购买数量</text>
+        <s-counter  bind:lintap="onSelectCount"></s-counter>
+    </view>
+</view>
 
+<view class="bottom-btn" wx:if="{{!outStock}}">
+    <text>加入购物车</text>
+</view>
+<view class="bottom-btn out-stock" wx:else>
+    <text>暂时缺货</text>
 </view>

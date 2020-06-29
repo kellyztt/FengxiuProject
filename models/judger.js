@@ -15,6 +15,45 @@ class Judger{
         this._initSkuPending();
     }
 
+    judge(init=false, cell, x, y){
+        if (!init){
+            this._changeCurrentCellStatus(cell, x, y);
+        }
+        this.fenceGroup.eachCell((cell, x, y) => {
+            const path = this._findPotentialPath(cell, x, y);
+            if (!path){
+                return;
+            }
+            const inDict = this._isInDict(path);
+            if (!inDict){
+                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.FORBIDDEN);
+            } else {
+                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.WAITING);
+            }
+        });
+    }
+
+    getDeterminateSku(){
+        let code = this.skuPending.getSkuCode();
+        code = this.fenceGroup.spu.id + '$' + code;
+        return this.fenceGroup.getSku(code);
+    }
+
+    isSKUIntact(){
+        return this.skuPending.isIntact();
+    }
+
+    findMissingKeys(){
+        const missingKeyIndex = this.skuPending.getMissingSpecKeysIndex();
+        return missingKeyIndex.map(i => {
+            return this.fenceGroup.fences[i].title;
+        });
+    }
+
+    getCurrentValues(){
+        return this.skuPending.getCurrentSpecValue();
+    }
+
     _initPathDict(){
         this.fenceGroup.skuList.forEach(item => {
             const sku = new SkuCode(item.code);
@@ -39,25 +78,6 @@ class Judger{
         })
     }
 
-    judge(init=false, cell, x, y){
-        if (!init){
-            this._changeCurrentCellStatus(cell, x, y);
-        }
-        this.fenceGroup.eachCell((cell, x, y) => {
-            const path = this._findPotentialPath(cell, x, y);
-            if (!path){
-                return;
-            }
-            const inDict = this._isInDict(path);
-            if (!inDict){
-                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.FORBIDDEN);
-            } else {
-                this.fenceGroup.setCellStatusByXY(x, y, CellStatus.WAITING);
-            }
-        });
-    }
-
-
     //选了一个cell之后，判断其他cell的状态
     _findPotentialPath(cell, x, y){
         const joiner = new Joiner('#');
@@ -68,22 +88,18 @@ class Judger{
                 if (this.skuPending.isSelected(cell, x)){
                     return;
                 }
-                const cellCode = this._getCellCode(cell.spec);
+                const cellCode = cell.getSkuCode();
                 joiner.join(cellCode);
             } else {
                 //判断其他行选中的元素
                 if(selected){
-                    const selectedCellCode = this._getCellCode(selected.spec);
+                    const selectedCellCode = selected.getSkuCode();
                     joiner.join(selectedCellCode);
                 }
             }
         }
         return joiner.getStr();
 
-    }
-
-    _getCellCode(spec){
-        return spec.key_id + '-' + spec.value_id;
     }
 
     _isInDict(path){
@@ -98,10 +114,6 @@ class Judger{
             this.skuPending.removeCell(x);
             this.fenceGroup.setCellStatusByXY(x, y, CellStatus.WAITING);
         }
-    }
-
-    isSKUIntact(){
-        return this.skuPending.isIntact();
     }
 
 }

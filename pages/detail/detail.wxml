@@ -1,4 +1,6 @@
 <!--pages/detail/detail.wxml-->
 <view>
-    <s-realm spu="{{spu}}"></s-realm>
+<!--    <s-realm spu="{{spu}}"></s-realm>-->
+    <s-tabbar></s-tabbar>
 </view>
+

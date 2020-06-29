@@ -72,6 +72,10 @@ class FenceGroup{
         this.fences[x].cells[y].status = status;
     }
 
+    getSku(code){
+        return this.skuList.find(item => item.code === code);
+    }
+
     _createMatrix(skuList){
         const matrix = [];
         skuList.forEach(item => {
