@@ -11,7 +11,8 @@ Component({
      * Component properties
      */
     properties: {
-        spu: Object
+        spu: Object,
+        orderWay: String
     },
 
     /**
@@ -119,7 +120,6 @@ Component({
             if (skuIntact){
                 const curSku = judger.getDeterminateSku();
                 this.bindSkuData(curSku);
-                console.log(this.data.curSkuCount)
                 this.setStockStatus(curSku.stock)
             }
             this.bindTipData();

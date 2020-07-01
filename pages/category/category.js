@@ -1,26 +1,18 @@
-// pages/detail/detail.js
-import {Http} from "../../utils/httpUtils";
-import {SPU} from "../../models/spu";
-import {OrderWay} from "../../core/enum";
-
+// pages/category/category.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    showRealm: false
+
   },
 
   /**
    * Lifecycle function--Called when page load
    */
-  onLoad: async function (options) {
-    const pid = options.pid;
-    const spu = await SPU.getSpuDetail(pid);
-    this.setData({
-      spu
-    })
+  onLoad: function (options) {
+
   },
 
   /**
@@ -70,31 +62,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  onGoToHome(){
-    wx.switchTab({
-      url: '/pages/home/home'
-    })
-  },
-
-  onGoToCart(){
-    wx.switchTab({
-      url: '/pages/cart/cart'
-    })
-  },
-
-  onBuy(){
-    this.setData({
-      showRealm: true,
-      orderWay: OrderWay.BUY
-    });
-  },
-
-  onAddToCart(){
-    this.setData({
-      showRealm: true,
-      orderWay: OrderWay.CART
-    });
   }
 })

@@ -1,6 +1,11 @@
-<!--pages/detail/detail.wxml-->
-<view>
-<!--    <s-realm spu="{{spu}}"></s-realm>-->
-    <s-tabbar></s-tabbar>
-</view>
+<l-popup show="{{showRealm}}" content-align="bottom">
+    <s-realm spu="{{spu}}" order-way="{{orderWay}}"></s-realm>
+</l-popup>
+
+<s-tabbar bind:gotohome="onGoToHome"
+          bind:gotocart="onGoToCart"
+          bind:addtocart="onAddToCart"
+          bind:buy="onBuy"
+          class="tabbar"
+></s-tabbar>
 
