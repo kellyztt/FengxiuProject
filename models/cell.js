@@ -5,6 +5,7 @@ class Cell{
     id;
     status = CellStatus.WAITING;
     spec;
+    skuImage;
 
     //single spec
     constructor(spec){

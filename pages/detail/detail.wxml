@@ -1,3 +1,15 @@
+<view>
+    <swiper class="top"
+            autoplay
+            indicator-dots
+    >
+        <block wx:for="{{spu.spu_detail_img_list}}">
+            <swiper-item>
+                <image class="top" mode="aspectFit" src="{{item.img}}"></image>
+            </swiper-item>
+        </block>
+    </swiper>
+</view>
 <l-popup show="{{showRealm}}" content-align="bottom">
     <s-realm spu="{{spu}}" order-way="{{orderWay}}"></s-realm>
 </l-popup>

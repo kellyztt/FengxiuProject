@@ -34,6 +34,20 @@ class Fence{
             this.cells.push(cell);
         });
     }
+
+    setFenceSketch(skuList){
+        this.cells.forEach(c=>{
+            this._setCellSkuImage(c, skuList);
+        });
+    }
+
+    _setCellSkuImage(cell, skuList){
+        const specCode = cell.getSkuCode();
+        const matchedSku = skuList.find(item=> item.code.includes(specCode));
+        if (matchedSku){
+            cell.skuImage = matchedSku.img;
+        }
+    }
 }
 export {
     Fence
