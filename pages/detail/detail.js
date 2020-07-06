@@ -2,6 +2,9 @@
 import {Http} from "../../utils/httpUtils";
 import {SPU} from "../../models/spu";
 import {OrderWay} from "../../core/enum";
+import {SaleExplain} from "../../models/sale-explain";
+import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
+import {px2rpx} from "../../miniprogram_npm/lin-ui/utils/util";
 
 Page({
 
@@ -18,9 +21,14 @@ Page({
   onLoad: async function (options) {
     const pid = options.pid;
     const spu = await SPU.getSpuDetail(pid);
+    const explain = await SaleExplain.getFixed();
+    const windowHeight = await getWindowHeightRpx();
+    const h = windowHeight - 100;
     this.setData({
-      spu
-    })
+      spu,
+      explain,
+      h
+    });
   },
 
   /**
@@ -96,5 +104,10 @@ Page({
       showRealm: true,
       orderWay: OrderWay.CART
     });
+  },
+  onSpecChange(event){
+    this.setData({
+      specs: event.detail
+    })
   }
 })

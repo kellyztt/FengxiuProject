@@ -1,0 +1,33 @@
+.container{
+    box-sizing: border-box;
+    width: 710rpx;
+    border: 2rpx dashed #DCEBE6;
+    display: flex;
+    flex-direction: column;
+    padding: 5rpx 25rpx;
+    background-color: #fff;
+}
+
+.inner{
+    height: 50rpx;
+    border-bottom: 2rpx solid #DECBE6;
+    font-size: 24rpx;
+    color: #333;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+/*.inner text:before{*/
+/*    content: '.';*/
+/*    margin-right: 26rpx;*/
+/*}*/
+
+.sleeve{
+    font-family: 'sleeve' !important;
+    color: #157658 !important;
+}
+
+.container > .inner:last-child{
+    border: none;
+}
