@@ -20,12 +20,16 @@
                 l-active-class="segment-item-active"
                 l-inactive-class="segment-item"
                 l-line-class="l-seg-line"
+                active-key="{{defaultRootId}}"
                 scrollable
+                bind:linchange="{{onSegChange}}"
         >
-            <block wx:for="{{}}" key="{{index}}">
-                <l-segment-item key="{{}}" tab="{{}}"></l-segment-item>
+            <block wx:for="{{roots}}" key="{{index}}">
+                <l-segment-item key="{{item.id}}" tab="{{item.name}}"></l-segment-item>
             </block>
         </l-segment>
-        <view class="right"></view>
+        <view class="right">
+            <s-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}"></s-sub-category>
+        </view>
     </view>
 </view>

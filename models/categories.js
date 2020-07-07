@@ -16,8 +16,7 @@ class Categories{
     }
 
     getSubs(rootId){
-        //TODO: item.id??
-        return this.subs.find(item=>item.parent_id = rootId);
+        return this.subs.filter(item=>item.parent_id === rootId);
     }
 }
 

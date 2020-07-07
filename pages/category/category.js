@@ -1,6 +1,5 @@
 // pages/category/category.js
 import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
-import {px2rpx} from "../../miniprogram_npm/lin-ui/utils/util";
 import {Categories} from "../../models/categories";
 
 Page({
@@ -9,7 +8,8 @@ Page({
      * Page initial data
      */
     data: {
-        categories: Object
+        categories: Object,
+        defaultRootId: 2
     },
 
     /**
@@ -17,6 +17,7 @@ Page({
      */
     onLoad: function (options) {
         this.setDynamicSegmentHeight();
+        this.initCategoryData();
     },
 
     async setDynamicSegmentHeight() {
@@ -34,6 +35,21 @@ Page({
         this.data.categories = categories;
         await categories.getAll();
         const roots = categories.getRoots();
+        const defaultRoot = this.getDefaultRoot(roots);
+        const currentSubs = categories.getSubs(defaultRoot.id);
+        this.setData({
+            roots,
+            currentSubs,
+            currentBannerImg: defaultRoot.img
+        })
+    },
+
+    getDefaultRoot(roots){
+        let defaultRoot = roots.find(item => item.id === this.data.defaultRootId);
+        if (!defaultRoot){
+            defaultRoot = roots[0];
+        }
+        return defaultRoot;
     },
 
     /**
@@ -89,5 +105,9 @@ Page({
         wx.navigateTo({
             url: "/pages/search/search"
         })
+    },
+
+    onSegChange(event){
+        
     }
 })

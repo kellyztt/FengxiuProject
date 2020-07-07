@@ -1,0 +1,15 @@
+<view class="container">
+    <image wx:if="{{bannerImg}}" src="{{bannerImg}}"></image>
+    <text class="title">- 全部分类 -</text>
+    <l-grid class="inner-container">
+        <block wx:for="{{categories}}">
+            <l-grid-item key="{{index}}" slot="{{index}}">
+                <view class="grid-item">
+                    <image mode="aspectFit" class="img" src="{{item.img}}"></image>
+                    <text>{{item.name}}</text>
+                </view>
+            </l-grid-item>
+        </block>
+    </l-grid>
+</view>
+
