@@ -22,14 +22,17 @@
                 l-line-class="l-seg-line"
                 active-key="{{defaultRootId}}"
                 scrollable
-                bind:linchange="{{onSegChange}}"
+                bind:linchange="onSegChange"
         >
             <block wx:for="{{roots}}" key="{{index}}">
                 <l-segment-item key="{{item.id}}" tab="{{item.name}}"></l-segment-item>
             </block>
         </l-segment>
         <view class="right">
-            <s-sub-category categories="{{currentSubs}}" bannerImg="{{currentBannerImg}}"></s-sub-category>
+            <s-sub-category 
+            categories="{{currentSubs}}" 
+            bannerImg="{{currentBannerImg}}"
+            bind:itemTap="onJumpToSpuList"></s-sub-category>
         </view>
     </view>
 </view>

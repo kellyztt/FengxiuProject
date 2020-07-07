@@ -1,2 +1,4 @@
-<!--pages/search/search.wxml-->
-<text>pages/search/search.wxml</text>
+<view>
+    <l-search-bar placeholder="请输入商品名称">
+    </l-search-bar>
+</view>

@@ -5,7 +5,8 @@
     "pages/cart/cart",
     "pages/category/category",
     "pages/my/my",
-    "pages/search/search"
+    "pages/search/search",
+    "pages/spu-list/spu-list"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -60,6 +61,7 @@
     "l-button": "/miniprogram_npm/lin-ui/button/index",
     "l-segment": "/miniprogram_npm/lin-ui/segment/index",
     "l-segment-item": "/miniprogram_npm/lin-ui/segment-item/index",
+    "l-search-bar": "/miniprogram_npm/lin-ui/search-bar/index",
     "s-spu-preview": "/components/spu-preview/index",
     "s-counter": "/components/counter/index"
   }

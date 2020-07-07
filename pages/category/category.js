@@ -1,6 +1,7 @@
 // pages/category/category.js
 import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
 import {Categories} from "../../models/categories";
+import { SpuListType } from "../../core/enum";
 
 Page({
 
@@ -9,7 +10,10 @@ Page({
      */
     data: {
         categories: Object,
-        defaultRootId: 2
+        defaultRootId: 2,
+        roots: Array,
+        currentSubs: Array,
+        currentBannerImg: String
     },
 
     /**
@@ -53,30 +57,9 @@ Page({
     },
 
     /**
-     * Lifecycle function--Called when page is initially rendered
-     */
-    onReady: function () {
-
-    },
-
-    /**
      * Lifecycle function--Called when page show
      */
     onShow: function () {
-
-    },
-
-    /**
-     * Lifecycle function--Called when page hide
-     */
-    onHide: function () {
-
-    },
-
-    /**
-     * Lifecycle function--Called when page unload
-     */
-    onUnload: function () {
 
     },
 
@@ -108,6 +91,21 @@ Page({
     },
 
     onSegChange(event){
-        
+        const rootId = event.detail.activeKey;
+        const currentSubs = this.data.categories.getSubs(rootId);
+        console.log(this.data.categories);
+        console.log(currentSubs);
+        const root = this.data.categories.getRoot(rootId);
+        this.setData({
+            currentSubs,
+            currentBannerImg: root.img
+        })
+    },
+
+    onJumpToSpuList(event){
+        const cid = event.detail.cid;
+        wx.navigateTo({
+            url: `/pages/spu-list/spu-list?cid=${cid}&type=${SpuListType.SUB_CATEGORY}`
+        })
     }
 })
