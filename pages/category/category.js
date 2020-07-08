@@ -93,8 +93,6 @@ Page({
     onSegChange(event){
         const rootId = event.detail.activeKey;
         const currentSubs = this.data.categories.getSubs(rootId);
-        console.log(this.data.categories);
-        console.log(currentSubs);
         const root = this.data.categories.getRoot(rootId);
         this.setData({
             currentSubs,
