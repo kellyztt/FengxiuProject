@@ -1,4 +1,7 @@
 // pages/search/search.js
+import {HistoryKeyWord} from "../../models/historyKeyword";
+
+const history = new HistoryKeyWord();
 Page({
 
   /**
@@ -12,34 +15,16 @@ Page({
    * Lifecycle function--Called when page load
    */
   onLoad: function (options) {
-
+    const historyTags = history.get();
+    this.setData({
+      historyTags
+    })
   },
 
   /**
    * Lifecycle function--Called when page is initially rendered
    */
   onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
 
   },
 
@@ -62,5 +47,20 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onSearch(event){
+    const keyWord = event.detail.value;
+    history.save(keyWord);
+    this.setData({
+      historyTags: history.get()
+    });
+  },
+
+  onDeleteHistory(event){
+    history.clear();
+    this.setData({
+      historyTags: history.get()
+    });
   }
 })
