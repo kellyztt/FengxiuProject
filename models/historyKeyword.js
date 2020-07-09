@@ -5,7 +5,13 @@ class HistoryKeyWord{
     keywords = [];
 
     constructor(){
+        //单例
+        if(typeof HistoryKeyWord.instance === 'object'){
+            return HistoryKeyWord.instance;
+        }
+        HistoryKeyWord.instance = this;
         this.keywords = this._getStoredKeywords();
+        return this;
     }
 
     save(keyword){
@@ -33,6 +39,7 @@ class HistoryKeyWord{
         this._refreshStorage();
     }
 
+    //缓存是单例模式
     _refreshStorage(){
         wx.setStorageSync(HistoryKeyWord.KEY, this.keywords);
     }

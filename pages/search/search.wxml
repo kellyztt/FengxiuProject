@@ -4,12 +4,13 @@
                   bg-color="#f1f1f1"
                   l-class="input"
                   bind:linconfirm="onSearch"
+                  bind:lincancle="onCancle"
     >
     </l-search-bar>
 </view>
 
 <view class="container">
-    <view>
+    <view wx:if="{{!search}}">
         <view class="history-container" wx:if="{{historyTags.length !== 0}}">
             <view class="history-title">
                 <view class="slide"></view>
@@ -21,11 +22,30 @@
             </view>
             <view class="history-tags">
                 <block wx:for="{{historyTags}}" wx:key="{{index}}">
-                    <l-tag l-class="tag" name="{{item}}">
+                    <l-tag l-class="tag" name="{{item}}" bind:lintap="onSearch">
                         {{item}}
                     </l-tag>
                 </block>
             </view>
         </view>
+        <view class="history-container">
+            <view class="history-title">
+                <view class="slide"></view>
+                <text>热门搜索</text>
+                <view style="flex:1"></view>
+            </view>
+            <view class="history-tags">
+                <block wx:for="{{hotTags}}" wx:key="{{index}}">
+                    <l-tag l-class="tag" bind:lintap="onSearch" name="{{item.title}}" l-select-class="tag-selected" select="{{item.highlight===1}}">
+                        {{item.title}}
+                    </l-tag>
+                </block>
+            </view>
+        </view>
+    </view>
+    <view wx:if="{{search}}">
+        <block wx:for="{{items}}">
+            <spu-preview-r data="{{this.data.item}}"></spu-preview-r>
+        </block>
     </view>
 </view>

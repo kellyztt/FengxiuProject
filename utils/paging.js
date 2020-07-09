@@ -65,7 +65,7 @@ class Paging{
         if (total === 0){
             return {
                 empty: true,
-                items,
+                items: [],
                 moreData: false,
                 accumulator: []
             }

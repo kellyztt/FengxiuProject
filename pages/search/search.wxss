@@ -3,6 +3,7 @@ page{
 }
 
 .header{
+    background-color: #fff;
     border-bottom: 1px solid #f3f3f3;
     padding-bottom: 14rpx;
     position: fixed;
@@ -62,4 +63,11 @@ page{
     color: #666 !important;
     margin-right: 20rpx;
     margin-bottom: 20rpx;
+}
+
+.tag-selected{
+    background-color: #DCEBE6 !important;
+    color: #157258 !important;
+    margin-right: 20rpx !important;
+    margin-bottom: 20rpx !important;
 }
