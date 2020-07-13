@@ -1,2 +1,12 @@
-<!--pages/cart/cart.wxml-->
-<text>pages/cart/cart.wxml</text>
+<view class="container" wx:if="{{!isEmpty}}">
+    <block wx:for="{{cartItems}}">
+        <s-cart-item bind:overflow="onOverflow" bind:itemdelete=""></s-cart-item>
+    </block>
+</view>
+
+<l-status-show show="{{isEmpty}}"
+               type="cart"
+               describe="购物车空空的，去逛逛吧"
+               button-text="去逛逛"
+               l-button-class="status-button"
+></l-status-show>

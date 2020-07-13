@@ -1,6 +1,6 @@
 /* components/spu-preview/index.wxss */
 .container{
-    width: 340rpx;
+    width: 350rpx;
     display: flex;
     flex-direction: column;
     box-shadow:0px 0px 8px 0px rgba(119, 163, 149, 0.2);

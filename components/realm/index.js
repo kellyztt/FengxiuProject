@@ -5,7 +5,9 @@ import {SPU} from "../../models/spu";
 import {Joiner} from "../../utils/joiner";
 import {Cell} from "../../models/cell";
 import {Cart} from "../../models/cart"
-;
+    ;
+import {showToast} from "../../utils/ui";
+
 Component({
     /**
      * Component properties
@@ -32,11 +34,11 @@ Component({
     },
 
     observers: {
-        "spu": function(spu){
-            if (!spu){
+        "spu": function (spu) {
+            if (!spu) {
                 return;
             }
-            if (SPU.isNoSpec(spu)){
+            if (SPU.isNoSpec(spu)) {
                 this.processNoSpec(spu);
             } else {
                 this.processHasSpec(spu);
@@ -49,7 +51,7 @@ Component({
      * Component methods
      */
     methods: {
-        processNoSpec(spu){
+        processNoSpec(spu) {
             this.setData({
                 noSpec: true,
             });
@@ -58,14 +60,14 @@ Component({
             return;
         },
 
-        processHasSpec(spu){
+        processHasSpec(spu) {
             const fenceGroup = new FenceGroup(spu);
             //const fences = fenceGroup.initFence();
             fenceGroup.initFences();
             const judger = new Judger(fenceGroup);
             this.data.judger = judger;
             const defaultSku = fenceGroup.getDefaultSku();
-            if (defaultSku){
+            if (defaultSku) {
                 this.bindSkuData(defaultSku);
                 this.setStockStatus(defaultSku.stock);
             } else {
@@ -75,7 +77,7 @@ Component({
             this.bindFenceGroupData(fenceGroup);
         },
 
-        bindSpuData: function(){
+        bindSpuData: function () {
             const spu = this.properties.spu;
             this.setData({
                 previewImage: spu.img,
@@ -85,7 +87,7 @@ Component({
             })
         },
 
-        bindSkuData(sku){
+        bindSkuData(sku) {
             this.setData({
                 previewImage: sku.img,
                 title: sku.title,
@@ -102,7 +104,7 @@ Component({
             })
         },
 
-        bindTipData(){
+        bindTipData() {
             this.setData({
                 skuIntact: this.data.judger.isSKUIntact(),
                 currentValues: this.data.judger.getCurrentValues(),
@@ -110,15 +112,15 @@ Component({
             })
         },
 
-        onCellTap(event){
+        onCellTap(event) {
             let data = event.detail.cell;
-            const { x, y } = event.detail;
+            const {x, y} = event.detail;
             const judger = this.data.judger;
             const cell = new Cell(data.spec);
             cell.status = data.status;
             judger.judge(false, cell, x, y);
             const skuIntact = judger.isSKUIntact();
-            if (skuIntact){
+            if (skuIntact) {
                 const curSku = judger.getDeterminateSku();
                 this.bindSkuData(curSku);
                 this.setStockStatus(curSku.stock)
@@ -128,28 +130,37 @@ Component({
             this.triggerSpecEvent();
         },
 
-        isOutOfStock(stock, currentCount){
+        isOutOfStock(stock, currentCount) {
             return stock < currentCount;
         },
 
-        setStockStatus(stock){
+        setStockStatus(stock) {
             const curSkuStock = this.data.curSkuCount;
             this.setData({
                 outStock: this.isOutOfStock(stock, curSkuStock)
             });
         },
 
-        onSelectCount(event){
+        noSpec(){
+            return SPU.isNoSpec(this.properties.spu);
+        },
+
+        onSelectCount(event) {
             const curCount = event.detail.count;
             this.data.curSkuCount = curCount;
-            if (this.data.judger.isSKUIntact()){
-                const sku = this.data.judger.getDeterminateSku();
-                this.setStockStatus(sku.stock);
+            if (this.noSpec()){
+                this.setStockStatus(this.getNoSpecSku().stock, curCount);
+            } else {
+                if (this.data.judger.isSKUIntact()) {
+                    const sku = this.data.judger.getDeterminateSku();
+                    this.setStockStatus(sku.stock);
+                }
             }
         },
-        triggerSpecEvent(){
-            const noSpec = SPU.isNoSpec(this.properties.spu);
-            if (noSpec){
+
+        triggerSpecEvent() {
+            const noSpec = this.noSpec();
+            if (noSpec) {
                 this.triggerEvent('specChange', {
                     noSpec
                 });
@@ -161,6 +172,42 @@ Component({
                     missingKeys: this.data.judger.findMissingKeys()
                 });
             }
+        },
+
+        onBuyOrCart(event) {
+            //无规格,只有一个sku
+            if (this.noSpec()) {
+                this.shoppingNoSpec();
+            } else {
+                this.shoppingVarious();
+            }
+        },
+
+        getNoSpecSku() {
+            return this.properties.spu.sku_list[0];
+        },
+
+        shoppingNoSpec(){
+            this._triggerShoppingEvent(this.getNoSpecSku());
+        },
+
+        shoppingVarious(){
+            const intact = this.data.judger.isSKUIntact();
+            if (!intact){
+                const missKeys = this.data.judger.findMissingKeys();
+                showToast(`请选择: ${missKeys.join(', ')}`);
+                return;
+            }
+            this._triggerShoppingEvent(this.data.judger.getDeterminateSku());
+        },
+
+        _triggerShoppingEvent(sku) {
+            this.triggerEvent('shopping', {
+                orderWay: this.properties.orderWay,
+                spuId: this.properties.spu.id,
+                sku: sku,
+                skuCount: this.data.curSkuCount
+            })
         }
     }
 })

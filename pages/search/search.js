@@ -2,6 +2,7 @@
 import {HistoryKeyWord} from "../../models/historyKeyword";
 import {Tags} from "../../models/Tags";
 import {Search} from "../../models/search";
+import {showToast} from "../../utils/ui";
 
 const history = new HistoryKeyWord();
 Page({
@@ -10,7 +11,7 @@ Page({
    * Page initial data
    */
   data: {
-
+    loadingType: 'loading'
   },
 
   /**
@@ -42,8 +43,29 @@ Page({
   /**
    * Called when page reach bottom
    */
-  onReachBottom: function () {
-
+  onReachBottom: async function () {
+    this.setData({
+      bottomLoading: true
+    })
+    const data = await this.data.paging.getMoreData();
+    if (!data){
+      this.setData({
+        loadingType: 'end'
+      })
+      return;
+    }
+    wx.lin.renderWaterFlow(data.items);
+    if (!data.moreData){
+      this.setData({
+        loadingType: 'end'
+      })
+    }
+    this.bindItems(data);
+    if (!data.moreData){
+      this.setData({
+        loadingType: 'end'
+      })
+    }
   },
 
   /**
@@ -59,10 +81,22 @@ Page({
       items: []
     })
     const keyWord = event.detail.value || event.detail.name;
+    if (!keyWord){
+      //显示toast
+      showToast("请输入关键字");
+      return;
+    }
     history.save(keyWord);
     const paging = Search.search(keyWord);
+    this.data.paging = paging;
+    //在wx对象上挂载lin属性
+    wx.lin.showLoading({
+      color: '#157658',
+      type: 'flash',
+      fullScreen: true
+    })
     const data = await paging.getMoreData();
-
+    wx.lin.hideLoading();
     this.setData({
       historyTags: history.get()
     });

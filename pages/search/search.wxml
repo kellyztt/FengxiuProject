@@ -4,7 +4,7 @@
                   bg-color="#f1f1f1"
                   l-class="input"
                   bind:linconfirm="onSearch"
-                  bind:lincancle="onCancle"
+                  bind:lincancel="onCancle"
     >
     </l-search-bar>
 </view>
@@ -21,7 +21,7 @@
                 </view>
             </view>
             <view class="history-tags">
-                <block wx:for="{{historyTags}}" wx:key="{{index}}">
+                <block wx:for="{{historyTags}}" wx:key="index">
                     <l-tag l-class="tag" name="{{item}}" bind:lintap="onSearch">
                         {{item}}
                     </l-tag>
@@ -35,7 +35,7 @@
                 <view style="flex:1"></view>
             </view>
             <view class="history-tags">
-                <block wx:for="{{hotTags}}" wx:key="{{index}}">
+                <block wx:for="{{hotTags}}" wx:key="index">
                     <l-tag l-class="tag" bind:lintap="onSearch" name="{{item.title}}" l-select-class="tag-selected" select="{{item.highlight===1}}">
                         {{item.title}}
                     </l-tag>
@@ -44,8 +44,14 @@
         </view>
     </view>
     <view wx:if="{{search}}">
-        <block wx:for="{{items}}">
-            <spu-preview-r data="{{this.data.item}}"></spu-preview-r>
-        </block>
+        <l-loadmore show="{{bottomLoading}}" end-text="---end---" type="{{loadingType}}">
+            <view slot="content" hidden="{{!search}}" class="spu-bottom">
+                <block wx:for="{{items}}">
+                    <s-spu-preview-r data="{{item}}"></s-spu-preview-r>
+                </block>
+            </view>
+        </l-loadmore>
+
     </view>
+    <l-loading></l-loading>
 </view>

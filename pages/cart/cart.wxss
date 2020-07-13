@@ -1,1 +1,3 @@
-/* pages/cart/cart.wxss */
+.status-button{
+    background-color: #157258 !important;
+}

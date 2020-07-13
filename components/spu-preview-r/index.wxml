@@ -25,6 +25,5 @@
         </view>
         <text class="subtitle">{{data.subtitle}}</text>
     </view>
-
 </view>
 

@@ -14,7 +14,6 @@
         <block wx:for="{{bannerB.items}}" wx:key="index">
             <swiper-item>
                 <image class="swiper" src="{{item.img}}"></image>
-
             </swiper-item>
         </block>
     </swiper>

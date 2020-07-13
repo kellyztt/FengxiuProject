@@ -1,66 +1,54 @@
 // pages/cart/cart.js
+import {Cart} from "../../models/cart";
+
 Page({
 
   /**
    * Page initial data
    */
   data: {
-
+    cartItems: [],
+    isEmpty: false
   },
 
   /**
    * Lifecycle function--Called when page load
    */
+  //页面加载的时候,第一次打开的时候，切换tab不会执行
   onLoad: function (options) {
 
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
+  //切换tab会执行，优点是刷新频率，数据新鲜程度更高
+  onShow: function(options){
+    const cart = new Cart();
+    const cartItems = cart.getAllCartItemFromLocal().items;
+    if (cart.isEmpty()){
+      this.empty();
+      return;
+    }
+    this.setData({
+      cartItems
+    });
+    this.notEmpty();
   },
 
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
+  empty(){
+    this.setData({
+      isEmpty: true
+    });
+    wx.hideTabBarRedDot({
+      index: 2
+    })
   },
 
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
+  notEmpty(){
+    this.setData({
+      isEmpty: false
+    });
+    wx.showTabBarRedDot({
+      index: 2
+    })
   }
+
 })

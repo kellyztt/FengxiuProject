@@ -3,7 +3,7 @@
             autoplay
             indicator-dots
     >
-        <block wx:for="{{spu.spu_detail_img_list}}">
+        <block wx:for="{{spu.spu_img_list}}">
             <swiper-item>
                 <image class="top" mode="aspectFill" src="{{item.img}}"></image>
             </swiper-item>
@@ -38,6 +38,7 @@
     <s-realm spu="{{spu}}"
              order-way="{{orderWay}}"
              bind:specChange="onSpecChange"
+             bing:shopping="onShopping"
     > </s-realm>
 </l-popup>
 

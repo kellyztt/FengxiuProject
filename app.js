@@ -32,6 +32,13 @@ App({
         }
       }
     })
+
+    const cart = new Cart();
+    if (!cart.isEmpty()){
+      wx.showTabBarRedDot({
+        index: 2
+      })
+    }
   },
   globalData: {
     userInfo: null

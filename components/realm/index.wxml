@@ -34,7 +34,7 @@
             </view>
         </view>
         <view class="hr"></view>
-        <block wx:for="{{fences}}" wx:key="{{index}}">
+        <block wx:for="{{fences}}" wx:key="index">
             <s-fence x="{{index}}" fence="{{item}}" bind:cellTap="onCellTap"></s-fence>
         </block>
         <view class="counter-container">
@@ -44,7 +44,7 @@
     </view>
 </scroll-view>
 
-<view class="bottom-btn" wx:if="{{!outStock}}">
+<view class="bottom-btn" wx:if="{{!outStock}}" bind:tap="onBuyOrCart">
     <text wx:if="{{orderWay==='cart'}}">加入购物车</text>
     <text wx:else>立即购买</text>
 </view>

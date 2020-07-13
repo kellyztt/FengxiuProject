@@ -19,7 +19,6 @@ Component({
       if (!data){
         return;
       }
-      console.log('data', data);
       const tags = data.tags;
       if (!tags){
         return;
@@ -34,6 +33,7 @@ Component({
    */
   methods: {
     onItemTap(event){
+      console.log(event);
       const pid = event.currentTarget.dataset.pid;
       wx.navigateTo({
         url: `/pages/detail/detail?pid=${pid}`

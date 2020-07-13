@@ -1,10 +1,8 @@
 // pages/detail/detail.js
-import {Http} from "../../utils/httpUtils";
 import {SPU} from "../../models/spu";
 import {OrderWay} from "../../core/enum";
 import {SaleExplain} from "../../models/sale-explain";
 import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
-import {px2rpx} from "../../miniprogram_npm/lin-ui/utils/util";
 
 Page({
 
@@ -21,6 +19,7 @@ Page({
   onLoad: async function (options) {
     const pid = options.pid;
     const spu = await SPU.getSpuDetail(pid);
+    console.log('spu', spu);
     const explain = await SaleExplain.getFixed();
     const windowHeight = await getWindowHeightRpx();
     const h = windowHeight - 100;
@@ -108,6 +107,15 @@ Page({
   onSpecChange(event){
     this.setData({
       specs: event.detail
-    })
+    });
+  },
+
+  onShopping(event){
+    const chosenSku = event.detail.sku;
+    const skuCount = event.detail.skuCount;
+    if (event.detail.orderWay == OrderWay.CART){
+      const cart = new Cart();
+      const cartItem =
+    }
   }
 })

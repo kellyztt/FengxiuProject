@@ -1,10 +1,10 @@
-// components/scroll-item/index.js
+// components/cart-item/index.js
 Component({
   /**
    * Component properties
    */
   properties: {
-    item:Object
+
   },
 
   /**
