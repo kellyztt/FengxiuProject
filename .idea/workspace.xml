@@ -2,19 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0e62d7b3-a5b4-480e-9ce3-b715166c3a3b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.wxss" beforeDir="false" afterPath="$PROJECT_DIR$/app.wxss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/cart-item/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/cart-item/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/cart-item/index.json" beforeDir="false" afterPath="$PROJECT_DIR$/components/cart-item/index.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/components/cart-item/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/cart-item/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/realm/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/realm/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/spu-preview-r/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/spu-preview-r/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/tab-bar/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/components/tab-bar/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/tab-bar/index.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/components/tab-bar/index.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/cart.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/cart.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/detail/detail.js" beforeDir="false" afterPath="$PROJECT_DIR$/pages/detail/detail.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pages/detail/detail.wxml" beforeDir="false" afterPath="$PROJECT_DIR$/pages/detail/detail.wxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/paging.js" beforeDir="false" afterPath="$PROJECT_DIR$/utils/paging.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -30,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/components/cart-item/index.wxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+            <state relative-caret-position="164">
+              <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
             </state>
           </provider>
         </entry>
@@ -171,7 +159,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="y" value="376" />
+    <option name="x" value="50" />
+    <option name="y" value="54" />
     <option name="width" value="1280" />
     <option name="height" value="721" />
   </component>
@@ -280,12 +269,12 @@
       <workItem from="1589192875280" duration="50152000" />
       <workItem from="1591452093942" duration="56267000" />
       <workItem from="1593930178440" duration="30230000" />
-      <workItem from="1594455519152" duration="15529000" />
+      <workItem from="1594455519152" duration="16062000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="173671000" />
+    <option name="totallyTimeSpent" value="174204000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -297,7 +286,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="77" y="361" width="1280" height="721" extended-state="0" />
+    <frame x="50" y="280" width="1280" height="721" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2359015" />
@@ -682,8 +671,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/components/cart-item/index.wxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="25" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="25" />
+        <state relative-caret-position="164">
+          <caret line="13" column="47" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="47" />
         </state>
       </provider>
     </entry>

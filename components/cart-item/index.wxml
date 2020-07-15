@@ -4,7 +4,16 @@
     </view>
     <view class="sku-container">
         <view>
-            <image></image>
+            <view wx:if="{{!online}}" class="image-sold-out">
+                <text>下架</text>
+            </view>
+            <view wx:elif="{{soldOut}}" class="image-sold-out">
+                <text>售罄</text>
+            </view>
+            <view wx:elif="{{s.shortage(cartItem.sku.stock)}}" class="image-sold-out">
+                <text>仅剩{{cartItem.sku.stock}}件</text>
+            </view>
+            <image mode="aspectFit" class="left"></image>
         </view>
 
     </view>
