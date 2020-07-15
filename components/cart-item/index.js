@@ -4,6 +4,7 @@ Component({
    * Component properties
    */
   properties: {
+    cartItem: Object,
 
   },
 

@@ -6,7 +6,7 @@
             <text>首页</text>
         </view>
         <view bind:tap="onGoToCart">
-            <l-badge value="1001">
+            <l-badge show="{{cartItemCount!==0}}" value="{{cartItemCount}}">
                 <l-icon size="44" name="cart" color="#157658"></l-icon>
             </l-badge>
             <text class="cart-text">购物车</text>

@@ -1,1 +1,12 @@
+<view class="container">
+    <view class="checkbox">
+        <s-check-box checked="{{cartItem.checked}}"></s-check-box>
+    </view>
+    <view class="sku-container">
+        <view>
+            <image></image>
+        </view>
 
+    </view>
+
+</view>

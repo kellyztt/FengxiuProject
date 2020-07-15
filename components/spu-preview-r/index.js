@@ -33,7 +33,6 @@ Component({
    */
   methods: {
     onItemTap(event){
-      console.log(event);
       const pid = event.currentTarget.dataset.pid;
       wx.navigateTo({
         url: `/pages/detail/detail?pid=${pid}`

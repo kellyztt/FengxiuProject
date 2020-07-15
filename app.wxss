@@ -13,12 +13,12 @@ page{
 
 @font-face {
   font-family: 'sleeve';  /* project id 1910001 */
-  src: url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.eot');
-  src: url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.woff2') format('woff2'),
-  url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.woff') format('woff'),
-  url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_1910001_ceclb3t2hg8.svg#sleeve') format('svg');
+  src: url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.eot');
+  src: url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1910001_sibsy4dv2l.svg#sleeve') format('svg');
 }
 
 .sleeve{
@@ -36,4 +36,8 @@ page{
 
 .l-icon-dot:before{
   content: '\ec1e';
+}
+
+.l-icon-check:before{
+  content: '\e645';
 }

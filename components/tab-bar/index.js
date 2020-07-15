@@ -3,7 +3,7 @@ Component({
    * Component properties
    */
   properties: {
-
+    cartItemCount: Number
   },
 
   /**

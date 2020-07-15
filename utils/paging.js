@@ -55,7 +55,6 @@ class Paging{
 
     async _actualGetData(){
         const req = this._getCurrentReq();
-        console.log('here');
         const paging = await Http.request(req);
         //if server return no response
         if(!paging){

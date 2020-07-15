@@ -207,7 +207,7 @@ Component({
                 spuId: this.properties.spu.id,
                 sku: sku,
                 skuCount: this.data.curSkuCount
-            })
+            });
         }
     }
 })

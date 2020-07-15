@@ -38,7 +38,7 @@
     <s-realm spu="{{spu}}"
              order-way="{{orderWay}}"
              bind:specChange="onSpecChange"
-             bing:shopping="onShopping"
+             bind:shopping="onShopping"
     > </s-realm>
 </l-popup>
 
@@ -47,6 +47,7 @@
           bind:addtocart="onAddToCart"
           bind:buy="onBuy"
           class="tabbar"
+          cart-item-count="{{cartItemCount}}"
 ></s-tabbar>
 
 

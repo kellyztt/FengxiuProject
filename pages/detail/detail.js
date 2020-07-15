@@ -2,7 +2,9 @@
 import {SPU} from "../../models/spu";
 import {OrderWay} from "../../core/enum";
 import {SaleExplain} from "../../models/sale-explain";
-import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
+import {getWindowHeightRpx} from "../../utils/system";
+import {CartItem} from "../../models/cart-item";
+import {Cart} from "../../models/cart";
 
 Page({
 
@@ -10,6 +12,7 @@ Page({
    * Page initial data
    */
   data: {
+    cartItemCount: 0,
     showRealm: false
   },
 
@@ -19,7 +22,6 @@ Page({
   onLoad: async function (options) {
     const pid = options.pid;
     const spu = await SPU.getSpuDetail(pid);
-    console.log('spu', spu);
     const explain = await SaleExplain.getFixed();
     const windowHeight = await getWindowHeightRpx();
     const h = windowHeight - 100;
@@ -28,6 +30,7 @@ Page({
       explain,
       h
     });
+    this.updateCartItemCount();
   },
 
   /**
@@ -111,11 +114,22 @@ Page({
   },
 
   onShopping(event){
+    console.log(event);
     const chosenSku = event.detail.sku;
     const skuCount = event.detail.skuCount;
     if (event.detail.orderWay == OrderWay.CART){
       const cart = new Cart();
-      const cartItem =
+      const cartItem = new CartItem(chosenSku, skuCount);
+      cart.addItem(cartItem);
+      this.updateCartItemCount();
     }
+  },
+
+  updateCartItemCount(){
+    const cart = new Cart();
+    this.setData({
+      cartItemCount: cart.getCartItemCount(),
+      showRealm: false
+    })
   }
 })

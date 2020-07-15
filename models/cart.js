@@ -46,6 +46,10 @@ class Cart{
         return this._getCartData();
     }
 
+    getCartItemCount(){
+        return this._getCartData().items.length;
+    }
+
     _getCartData(){
         if (this._cartData !== null){
             return this._cartData;
