@@ -50,6 +50,14 @@ class Cart{
         return this._getCartData().items.length;
     }
 
+    static isSoldOut(cartItem){
+        return cartItem.sku.stock === 0;
+    }
+
+    static isOnline(cartItem){
+        return cartItem.sku.online;
+    }
+
     _getCartData(){
         if (this._cartData !== null){
             return this._cartData;

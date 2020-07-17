@@ -28,7 +28,7 @@ Page({
       return;
     }
     this.setData({
-      cartItems
+      cartItems:cartItems
     });
     this.notEmpty();
   },
