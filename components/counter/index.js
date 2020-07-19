@@ -6,7 +6,7 @@ Component({
    * Component properties
    */
   properties: {
-    counter:{
+    count:{
       type: Number,
       value: Cart.SKU_MIN_COUNT
     },
@@ -14,7 +14,7 @@ Component({
       type: Number,
       value: Cart.SKU_MIN_COUNT
     },
-    ceiling: {
+    max: {
       type: Number,
       value: Cart.SKU_MAX_COUNT
     }

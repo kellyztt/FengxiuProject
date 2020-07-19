@@ -4,8 +4,8 @@
            l-class="container"
            count = "{{count}}"
            min = "{{min}}"
-           max = "{{ceiling}}"
-           bind: linout="ouOverStack"
+           max = "{{max}}"
+           bind:linout="ouOverStack"
 >
 
 </l-counter>
