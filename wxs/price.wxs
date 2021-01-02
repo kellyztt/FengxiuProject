@@ -1,28 +1,25 @@
 function mainPrice(price, discountPrice){
-    if (!discountPrice){
-        return {
-            price: price,
-            display: true
-        };
-    } else {
+    if (discountPrice){
         return {
             price: discountPrice,
             display: true
         }
     }
+    return {
+        price: price,
+        display: true
+    }
 }
 
 function slashedPrice(price, discountPrice){
-    if (!discountPrice){
-        return {
-            price: null,
-            display: false
-        }
-    } else {
+    if (discountPrice){
         return {
             price: price,
             display: true
         }
+    }
+    return{
+        display: false
     }
 }
 
