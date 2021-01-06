@@ -1,36 +1,22 @@
-<!--pages/home/home.wxml-->
-
-<l-loadmore show
-            type="{{loadingType}}"
-            end-text="已经到底了">
-<view slot="content" class="container">
-    <image class="top-theme" src="{{themeA.entrance_img}}"></image>
-    <swiper class="swiper"
-            autoplay
-            interval="3000"
-            indicator-dots
-            indicator-active-color="#157658"
-            circular>
-        <block wx:for="{{bannerB.items}}" wx:key="index">
-            <swiper-item>
-                <image class="swiper" src="{{item.img}}"></image>
-            </swiper-item>
-        </block>
-    </swiper>
-    <s-category-grid grid="{{grid}}"></s-category-grid>
-    <image class="activity" src="{{activityD.entrance_img}}"></image>
-    <s-spu-scroll
-            wx:if="{{themeE.online}}"
-            theme="{{themeE}}"
-            spu-list="{{themeESpu}}"
-    ></s-spu-scroll>
-    <image src="{{themeF.entrance_img}}" class="quality"></image>
-    <s-hot-list banner="{{bannerG}}"></s-hot-list>
-    <image src="{{themeH.entrance_img}}" class="fashion"></image>
-    <view class="spu-bottom">
-        <image src="/assets/home/title.png" class="spu-bottom-title"></image>
-        <l-water-flow generic:l-water-flow-item="s-spu-preview" >
-        </l-water-flow>
+<l-loadmore show type="{{loadingType}}" loading-text="正在加载" end-text="没有更多">
+    <view class="container" slot="content">
+        <image src="{{themeLocationA.entrance_img}}" class="theme-image" />
+        <swiper autoplay circular indicator-dots indicator-active-color="#157658" class="swiper">
+            <block wx:for="{{bannerLocationB.items}}" wx:key="id">
+                <swiper-item>
+                    <image src="{{item.img}}" class="swiper" />
+                </swiper-item>
+            </block>
+        </swiper>
+        <s-category-grid categories="{{categoryLocationC}}"></s-category-grid>
+        <image class="activity" src="{{activityD.entrance_img}}" />
+        <s-spu-scroll wx:if="{{themeLocationE.online}}" theme="{{themeLocationE}}" spu-list="{{themeESpuList}}"></s-spu-scroll>
+        <image class="quality" src="{{themeLocationF.entrance_img}}" />
+        <s-hotlist banner="{{bannerLocationG}}"></s-hotlist>
+        <image class="fashion" src="{{themeLocationH.entrance_img}}" />
+        <view class="spu-bottom">
+            <image src="/images/home/title@interest.png" class="spu-bottom-title" />
+        </view>
+        <l-water-flow generic:l-water-flow-item="s-spu-preview" />
     </view>
-</view>
 </l-loadmore>

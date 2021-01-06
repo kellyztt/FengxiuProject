@@ -1,10 +1,9 @@
 // pages/home/home.js
-
-import {Theme} from "../../models/theme";
-import {Banner} from "../../models/banner";
-import {Category} from "../../models/category";
-import {Activity} from "../../models/activity";
-import {SpuPaging} from "../../models/spu-paging";
+import { Theme } from "../../models/theme.js";
+import { Banner } from "../../models/banner.js";
+import { Category } from "../../models/category.js";
+import { Activity } from "../../models/activity.js";
+import { SpuPaging } from "../../models/spu-paging.js";
 
 Page({
 
@@ -12,69 +11,69 @@ Page({
    * Page initial data
    */
   data: {
-      themeA: null,
-      bannerB: null,
-      grid:[],
+      themeLocationA: null,
+      bannerLocationB: null,
+      categoryLocationC: [],
       activityD: null,
-      themeE: null,
-      themeF: null,
-      bannerG: null,
-      themeH: null,
+      themeLocationE: null,
+      themeESpuList: [],
+      themeLocationF: null,
+      bannerLocationG: null,
+      themeLocationH: null,
       spuPaging: null,
-      loadingType: 'loading'
+      loadingType: "loading"
   },
-
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: async function () {
-      this.initData();
+      this.initAllData();
       this.initBottomSpuList();
   },
 
-    async initData () {
-        const theme = new Theme();
-        //after that, themes[] has data
-        await theme.getThemes();
-        const themeA = theme.getHomeLocationA();
-        const bannerB = await Banner.getHomeLocationB();
-        const gridC = await Category.getHomeLocationC();
-        const activityD = await Activity.getHomeLocationD();
-        const themeE = theme.getHomeLocationE();
-        const themeF = await theme.getHomeLocationF();
-        const bannerG = await Banner.getHomeLocationG();
-        const themeH = theme.getHomeLocationH();
-        let themeESpu = [];
-        if (themeE.online){
-            const data = await theme.getHomeLocationESpu();
-            if (data){
-                themeESpu = data.spu_list.splice(0,8);
-            }
-        }
+  async initAllData(){
+    //const themeLocationA = await Theme.getHomeThemeLocationA();
+    const theme = new Theme();
+    await theme.getThemes();
+    const themeLocationA = theme.getHomeThemeLocationA();
+    const bannerLocationB = await Banner.getHomeLocationB();
+    const categoryLocationC = await Category.getCategoryGrid();
+    const activityD = await Activity.getCouponActivity();
+    const themeLocationE = theme.getHomeThemeLocationE();
+    const themeLocationF = theme.getHomeThemeLocationF();
+    const bannerLocationG = await Banner.getHomeLocationG();
+    const themeLocationH = theme.getHomeThemeLocationH();
+    let themeESpuList = [];
+    if (themeLocationE.online){
+      const data = await Theme.getThemeESpuList();
+      if (data){
+        themeESpuList = data.spu_list.slice(0, 8);
+      }
+    }
+    this.setData({
+      themeLocationA,
+      bannerLocationB,
+      categoryLocationC,
+      activityD,
+      themeLocationE,
+      themeESpuList,
+      themeLocationF,
+      bannerLocationG,
+      themeLocationH
+    });   
+  },
 
-        this.setData({
-            themeA,
-            bannerB,
-            grid: gridC,
-            activityD,
-            themeE,
-            themeESpu,
-            themeF,
-            bannerG,
-            themeH
-        });
-    },
+  async initBottomSpuList(){
+    const paging = SpuPaging.getLatestPaging();
+    this.data.spuPaging = paging;
+    const data = await paging.getMoreData();
+    if (!data){
+      return;
+    }
+    wx.lin.renderWaterFlow(data.items);
+  },
 
-     async initBottomSpuList(){
-        const paging = SpuPaging.getLatestPaging();
-        this.data.spuPaging = paging;
-        const data = await paging.getMoreData();
-        if (!data){
-            return;
-        }
-        wx.lin.renderWaterFlow(data.items);
-    },
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -86,13 +85,6 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
 
   },
 
@@ -114,16 +106,21 @@ Page({
    * Called when page reach bottom
    */
   onReachBottom: async function () {
-      const data = await this.data.spuPaging.getMoreData();
-      if (!data){
-          return;
-      }
-      wx.lin.renderWaterFlow(data.items);
-      if (!data.moreData){
-          this.setData({
-              loadingType: 'end'
-          })
-      }
+     this.setData({
+       loadmore: true
+     });
+     const paging = this.data.spuPaging;
+     const data = await paging.getMoreData();
+     if (!data){
+      return;
+    }
+    wx.lin.renderWaterFlow(data.items);
+    if (!data.moreData){
+      this.setData({
+        loadingType: "end"
+      })
+    }
+    
   },
 
   /**
