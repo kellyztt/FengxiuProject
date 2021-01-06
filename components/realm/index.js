@@ -1,213 +1,49 @@
 // components/realm/index.js
-import {FenceGroup} from "../../models/fence-group";
-import {Judger} from "../../models/judger";
-import {SPU} from "../../models/spu";
-import {Joiner} from "../../utils/joiner";
-import {Cell} from "../../models/cell";
-import {Cart} from "../../models/cart"
-    ;
-import {showToast} from "../../utils/ui";
+import { FenceGroup } from "../../components/models/fence-group.js";
+import { Judger } from "../models/judger.js";
 
 Component({
-    /**
-     * Component properties
-     */
-    properties: {
-        spu: Object,
-        orderWay: String
-    },
+  /**
+   * Component properties
+   */
+  properties: {
+    spu: Object,
+  },
 
-    /**
-     * Component initial data
-     */
-    data: {
-        fences: Object,
-        judger: Object,
-        previewImage: String,
-        title: String,
-        price: String,
-        discountPrice: String,
-        stock: Number,
-        noSpec: Boolean,
-        skuIntact: Boolean,
-        curSkuCount: Cart.SKU_MIN_COUNT
-    },
+  /**
+   * Component initial data
+   */
+  data: {
+    fenceGroup: null,
+    judger: null
+  },
 
-    observers: {
-        "spu": function (spu) {
-            if (!spu) {
-                return;
-            }
-            if (SPU.isNoSpec(spu)) {
-                this.processNoSpec(spu);
-            } else {
-                this.processHasSpec(spu);
-            }
-            this.triggerSpecEvent();
-        }
-    },
-
-    /**
-     * Component methods
-     */
-    methods: {
-        processNoSpec(spu) {
-            this.setData({
-                noSpec: true,
-            });
-            this.bindSkuData(spu.sku_list[0]);
-            this.setStockStatus(spu.sku_list[0].stock);
-            return;
-        },
-
-        processHasSpec(spu) {
-            const fenceGroup = new FenceGroup(spu);
-            //const fences = fenceGroup.initFence();
-            fenceGroup.initFences();
-            const judger = new Judger(fenceGroup);
-            this.data.judger = judger;
-            const defaultSku = fenceGroup.getDefaultSku();
-            if (defaultSku) {
-                this.bindSkuData(defaultSku);
-                this.setStockStatus(defaultSku.stock);
-            } else {
-                this.bindSpuData()
-            }
-            this.bindTipData();
-            this.bindFenceGroupData(fenceGroup);
-        },
-
-        bindSpuData: function () {
-            const spu = this.properties.spu;
-            this.setData({
-                previewImage: spu.img,
-                title: spu.title,
-                price: spu.price,
-                discountPrice: spu.discount_price,
-            })
-        },
-
-        bindSkuData(sku) {
-            this.setData({
-                previewImage: sku.img,
-                title: sku.title,
-                price: sku.price,
-                discountPrice: sku.discount_price,
-                //only sku has stock
-                stock: sku.stock,
-            })
-        },
-
-        bindFenceGroupData: function (fenceGroup) {
-            this.setData({
-                fences: fenceGroup.fences,
-            })
-        },
-
-        bindTipData() {
-            this.setData({
-                skuIntact: this.data.judger.isSKUIntact(),
-                currentValues: this.data.judger.getCurrentValues(),
-                missingKeys: this.data.judger.findMissingKeys()
-            })
-        },
-
-        onCellTap(event) {
-            let data = event.detail.cell;
-            const {x, y} = event.detail;
-            const judger = this.data.judger;
-            const cell = new Cell(data.spec);
-            cell.status = data.status;
-            judger.judge(false, cell, x, y);
-            const skuIntact = judger.isSKUIntact();
-            if (skuIntact) {
-                const curSku = judger.getDeterminateSku();
-                this.bindSkuData(curSku);
-                this.setStockStatus(curSku.stock)
-            }
-            this.bindTipData();
-            this.bindFenceGroupData(judger.fenceGroup);
-            this.triggerSpecEvent();
-        },
-
-        isOutOfStock(stock, currentCount) {
-            return stock < currentCount;
-        },
-
-        setStockStatus(stock) {
-            const curSkuStock = this.data.curSkuCount;
-            this.setData({
-                outStock: this.isOutOfStock(stock, curSkuStock)
-            });
-        },
-
-        noSpec(){
-            return SPU.isNoSpec(this.properties.spu);
-        },
-
-        onSelectCount(event) {
-            const curCount = event.detail.count;
-            this.data.curSkuCount = curCount;
-            if (this.noSpec()){
-                this.setStockStatus(this.getNoSpecSku().stock, curCount);
-            } else {
-                if (this.data.judger.isSKUIntact()) {
-                    const sku = this.data.judger.getDeterminateSku();
-                    this.setStockStatus(sku.stock);
-                }
-            }
-        },
-
-        triggerSpecEvent() {
-            const noSpec = this.noSpec();
-            if (noSpec) {
-                this.triggerEvent('specChange', {
-                    noSpec
-                });
-            } else {
-                this.triggerEvent('specChange', {
-                    noSpec: SPU.isNoSpec(this.properties.spu),
-                    skuIntact: this.data.judger.isSKUIntact(),
-                    currentValues: this.data.judger.getCurrentValues(),
-                    missingKeys: this.data.judger.findMissingKeys()
-                });
-            }
-        },
-
-        onBuyOrCart(event) {
-            //无规格,只有一个sku
-            if (this.noSpec()) {
-                this.shoppingNoSpec();
-            } else {
-                this.shoppingVarious();
-            }
-        },
-
-        getNoSpecSku() {
-            return this.properties.spu.sku_list[0];
-        },
-
-        shoppingNoSpec(){
-            this._triggerShoppingEvent(this.getNoSpecSku());
-        },
-
-        shoppingVarious(){
-            const intact = this.data.judger.isSKUIntact();
-            if (!intact){
-                const missKeys = this.data.judger.findMissingKeys();
-                showToast(`请选择: ${missKeys.join(', ')}`);
-                return;
-            }
-            this._triggerShoppingEvent(this.data.judger.getDeterminateSku());
-        },
-
-        _triggerShoppingEvent(sku) {
-            this.triggerEvent('shopping', {
-                orderWay: this.properties.orderWay,
-                spuId: this.properties.spu.id,
-                sku: sku,
-                skuCount: this.data.curSkuCount
-            });
-        }
+  observers: {
+    "spu": function(spu){
+      if (!spu){
+        return;
+      }
+      const fenceGroup = new FenceGroup(spu);
+      fenceGroup.initFences();
+      const judger = new Judger(fenceGroup);
+      this.data.judger = judger;
+      this.setData({
+        fenceGroup: fenceGroup
+      })
     }
+  },
+
+  /**
+   * Component methods
+   */
+  methods: {
+    onCellTap: function(event){
+      const { cell, x, y } = event.detail;
+      const judger = this.data.judger;
+      judger.judge(cell, x, y);
+      this.setData({
+        fenceGroup: judger.fenceGroup
+      })
+    }
+  }
 })

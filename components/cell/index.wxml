@@ -1,25 +1,26 @@
-<view bind:tap='onTap' class="container {{c.statusStyle(cell.status).outer}}">
+<!--components/cell/index.wxml-->
+<view class="container {{c.statusStyle(cell.status).outer}}" bind:tap="onTap">
     <view class="inner-container {{c.statusStyle(cell.status).inner}}">
-        <image src="{{cell.skuImage}}" class="img" wx:if="{{cell.skuImage}}" mode="aspectFit"></image>
         <text>{{cell.title}}</text>
     </view>
 </view>
 
 <wxs module="c">
     function statusStyle(status){
-        status == 'forbidden';
-        if (status === 'forbidden'){
+        if (status === "forbidden"){
             return {
-                outer: 'forbidden',
-                inner: ''
+                outer: "forbidden",
+                inner: ""
             }
-        } else if (status === 'selected'){
+        }
+        if (status === "selected"){
             return {
-                outer: 's-outer',
-                inner: 's-inner'
+                outer: "s-outer",
+                inner: "s-inner"
             }
         }
     }
-
-    module.exports.statusStyle = statusStyle
+    module.exports = {
+        statusStyle: statusStyle 
+    }
 </wxs>
