@@ -1,15 +1,15 @@
 /* components/fence/index.wxss */
+.title{
+    color: #555;
+    font-size: 24rpx;
+    margin: 28rpx 0;
+}
+
 .row-container{
     display: flex;
     flex-direction: row;
     align-items: center;
     flex-wrap: wrap;
-}
-
-.title{
-    color: #555;
-    font-size: 24rpx;
-    margin: 28rpx 0;
 }
 
 .cell{

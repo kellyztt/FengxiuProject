@@ -1,21 +1,18 @@
-import {Http} from "../utils/httpUtils";
-
-class Banner{
-    //get Banner
-    static locationB = 'b-1';
-    static locationG = 'b-2';
+import { Http } from "../utils/http.js";
+class Banner {
+    static locationBName = "b-1";
+    static locationGName = "b-2";
     static async getHomeLocationB(){
-        return await Http.request({
-            url: `/banner/name/${this.locationB}`
-        })
+        return Banner.getHomeBanner(Banner.locationBName);
+    }
+    static async getHomeLocationG(){
+        return Banner.getHomeBanner(Banner.locationGName);
     }
 
-    static async getHomeLocationG(){
-        return await Http.request({
-            url: `/banner/name/${this.locationG}`
-        })
+    static getHomeBanner(name){
+        return Http.request({
+            url: `banner/name/${name}`
+        });
     }
-}
-export {
-    Banner
-}
+} 
+export { Banner }
