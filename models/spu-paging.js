@@ -1,12 +1,8 @@
-import {Paging} from "../utils/paging";
-
-class SpuPaging{
+import { Paging } from "../utils/paging.js";
+class SpuPaging {
     static getLatestPaging(){
-        return new Paging({
-                url: '/spu/latest'}
-        , 5);
+        return new Paging("spu/latest");
     }
 }
-export {
-    SpuPaging
-}
+
+export { SpuPaging }
