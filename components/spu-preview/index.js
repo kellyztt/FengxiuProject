@@ -1,4 +1,4 @@
-// components/spu-preview/index.js
+// components/demo/index.js
 Component({
   /**
    * Component properties
@@ -11,31 +11,31 @@ Component({
    * Component initial data
    */
   data: {
-    tags: Array
+    tags: []
   },
 
   observers: {
-    'data': function(data){
+    "data": function(data){
       if (!data){
         return;
       }
-      const tags = data.tags;
-      if (!tags){
+      if (!data.tags){
         return;
       }
+      const tags = data.tags.split("$");
       this.setData({
-        tags: tags.split('$')
-      });
+        tags
+      })
     }
   },
+
   /**
    * Component methods
    */
   methods: {
-    onItemTap(event){
-      const pid = event.currentTarget.dataset.pid;
+    onItemTap: function(){
       wx.navigateTo({
-        url: `/pages/detail/detail?pid=${pid}`
+        url: `/pages/detail/detail?pid=${this.properties.data.id}`
       })
     }
   }

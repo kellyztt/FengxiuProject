@@ -1,100 +1,89 @@
-import {Http} from "./httpUtils";
-
+import { Http } from "../utils/http.js";
 class Paging{
     start;
     count;
-    req;
-    lock = false;
+    list=[];
+    locker = false;
     url;
     moreData = true;
-    accumulator = [];
-    /*
-    * req={
-    * url: "",
-    * data:""
-    * }*/
-    constructor(req, count = 10, start = 0){
-        this.req = req;
+
+    constructor(url, count=10, start=0){
         this.count = count;
         this.start = start;
-        this.url = req.url;
+        this.url = url;
     }
 
     async getMoreData(){
         if (!this.moreData){
             return;
         }
-        //1. getLock
-        if (!this._getLock()){
-            //TODO: wait?
-            return;
+        if (!this._getLocker()){
+            return;  
         }
-        //2. request
-        const data = await this._actualGetData();
-        //3. releaseLock
-        this._releaseLock();
+        const data = await this._achieveData();
+        this._releaseLocker();  
         return data;
     }
 
-    //private function
-    _getLock(){
-        //如果锁为true，代表有别的request在进行，此次request需等待
-        if (this.lock){
+    _getLocker(){
+        if (this.locker){
             return false;
         }
-        //如果锁为false，则自己占用
-        this.lock = true;
+        this.locker = true;
         return true;
     }
 
-    _releaseLock(){
-        if (this.lock){
-            this.lock = false;
+    _releaseLocker(){
+        if (this.locker){
+            this.locker = false;
         }
     }
 
-    async _actualGetData(){
-        const req = this._getCurrentReq();
-        const paging = await Http.request(req);
-        //if server return no response
-        if(!paging){
+    async _achieveData(){
+        const result = await Http.request({
+            url: this._getCurrentRequest()
+        });
+        if (!result){
             return null;
         }
-        const {total, page, total_page, items} = paging;
-        // do not have data
-        if (total === 0){
+        //一条数据都没有
+        if (result.total === 0){
             return {
                 empty: true,
-                items: [],
-                moreData: false,
-                accumulator: []
+                items:[],
+                accumulator: [],
+                moreData: false
             }
         }
-        this.moreData = await Paging._moreData(page, total_page);
-        if (this.moreData){
-            this.start += this.count;
-        }
-        this.accumulator = this.accumulator.concat(items);
+        this.moreData = this._moreData(result.total_page, result.page);
+        this.start += this.count;
+        this._accumulate(result.items);
         return {
             empty: false,
-            items,
-            moreData: this.moreData,
-            accumulator: this.accumulator
+            items:result.items,
+            accumulator: this.list,
+            moreData: this.moreData
         }
     }
 
-    static _moreData(pageNum, totalPage){
+    //TODO: need to change to request?
+    _getCurrentRequest(){
+        let url = this.url;
+        const param = `start=${this.start}&count=${this.count}`;
+        if (url.includes("?")){
+            url += "&" + param;
+        } else {
+            url += "?" + param;
+        }
+        return url;
+    }
+
+    _moreData(totalPage, pageNum){
         return pageNum < totalPage - 1;
     }
 
-    //Todo: why append parameters in the url? not using data parameter?
-    _getCurrentReq(){
-        let url = this.url;
-        const params = `start=${this.start}&count=${this.count}`;
-        url = url.includes("?") ? url + "&" : url + "?";
-        url += params;
-        this.req.url = url;
-        return this.req;
+    _accumulate(items){
+        this.list = this.list.concat(items);
     }
 }
 
