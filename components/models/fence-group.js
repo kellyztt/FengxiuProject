@@ -9,10 +9,19 @@ class FenceGroup{
     skuList = [];
     specs = {};
     fences = [];
+    defaultSku; 
 
     constructor(spu){
         this.spu = spu;
-        this.skuList = spu.sku_list
+        this.skuList = spu.sku_list;
+    }
+
+    getDefaultSku(){
+        const defaultSku = this.spu.default_sku_id;
+        if (!defaultSku){
+            return;
+        }
+        return this.skuList.find(s => s.id === defaultSku)
     }
 
     // initFences(){
@@ -41,12 +50,6 @@ class FenceGroup{
         this.fences = fences;
     }
 
-    _createMatrix(skuList){
-        let m = [];
-        skuList.forEach(sku=>m.push(sku.specs));
-        return new Matrix(m);
-    }
-
     eachCell(cb){
         for (let i = 0; i < this.fences.length; i++){
             for (let j = 0; j < this.fences[i].cells.length; j++){
@@ -55,9 +58,32 @@ class FenceGroup{
         }
     }
 
+    setCellStatusById(id, status){
+        this.eachCell((cell) => {
+            if (cell.id === id){
+                cell.status = status;
+            }
+        })
+    }
+
+    setCellStatusByXY(x, y, status){
+        this.fences[x].cells[y].status = status;
+    }
+
+    getSku(skuCode){
+        skuCode = `${this.spu.id}$${skuCode}`;
+        return this.skuList.find(s => s.code === skuCode);
+    }
+
     // _createNewFence(){
     //     return new Fence();
     // }
+
+    _createMatrix(skuList){
+        let m = [];
+        skuList.forEach(sku=>m.push(sku.specs));
+        return new Matrix(m);
+    }
 }
 
 export { FenceGroup }

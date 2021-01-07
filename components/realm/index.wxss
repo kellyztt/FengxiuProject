@@ -11,8 +11,8 @@
 }
 
 .sku-img{
-    width: 160px;
-    height: 160rpx
+    width: 160rpx;
+    height: 160rpx;
 }
 
 .sku-desc{
@@ -41,4 +41,24 @@
     width: 690rpx;
     height: 2rpx;
     background-color: #E9E9E9;
+}
+
+.stock{
+    margin-left: 30rpx;
+    font-size: 20rpx;
+    color: #999;
+}
+
+.stock-pinch{
+    margin-left: 30rpx;
+    font-size: 20rpx;
+    color: #D20109;
+}
+
+.sku-pending > text:first-child{
+    color: #999;
+}
+
+.sku-pending > text:last-child{
+    color: #666;
 }

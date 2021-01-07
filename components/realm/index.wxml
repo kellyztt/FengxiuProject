@@ -1,18 +1,24 @@
 <!--components/realm/index.wxml-->
+<wxs src="../../wxs/price.wxs" module="p"></wxs>
 <view class="container">
     <view class="sku-preview">
-        <image src="" class="sku-img"/>
+        <image src="{{image}}" class="sku-img"/>
         <view class="sku-desc">
-            <text class="title"></text>
+            <text class="title">{{title}}</text>
             <view>
                 <view class="price-row">
-                    <l-price value="" color="#157658" value-size="28" autofix/>
-                    <l-price deleted value="" color="#999" value-size="26" l-class="discount-price"/>
+                    <l-price value="{{p.mainPrice(price, discountPrice).price}}" color="#157658" value-size="28" autofix/>
+                    <l-price deleted value="{{p.slashedPrice(price, discountPrice).price}}" wx:if="{{p.slashedPrice(price, discountPrice).display}}"color="#999" value-size="26" l-class="discount-price"/>
+                    <view wx:if="{{stock && stock > 10}}" class="stock">库存: {{stock}} 件</view>  
+                    <view wx:if="{{stock && stock <= 10 && stock != 0}}" class="stock-pinch">仅剩: {{stock}} 件</view>  
                 </view>
-                <view class="sku-pending"></view>
             </view>
-          
-            <text class="stock"></text>
+            <view wx:if="{{!noSpec}}" class="sku-pending">
+                <text wx:if="{{!isIntact}}">请选择: </text>
+                <text wx:else>已选择: </text>
+                <text wx:if="{{!isIntact}}">{{missingKeys}}</text>
+                <text wx:else>{{currentValue}}</text>
+            </view>
         </view>
     </view>
     <view class="hr"></view>
