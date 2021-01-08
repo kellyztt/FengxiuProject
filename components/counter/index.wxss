@@ -1,9 +1,9 @@
 /* components/counter/index.wxss */
-
 .container{
     border: 3rpx solid #157658 !important;
     height: 48rpx !important;
 }
+
 .all-background{
     background-color: transparent !important;
 }
@@ -14,5 +14,5 @@
 }
 
 .font-color{
-    color: #157258 !important;
+    color: #157658 !important;
 }

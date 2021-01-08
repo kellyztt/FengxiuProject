@@ -1,21 +1,23 @@
-<!--components/realm/index.wxml-->
+<!-- components/realm/index.wxml -->
 <wxs src="../../wxs/price.wxs" module="p"></wxs>
 <view class="container">
     <view class="sku-preview">
-        <image src="{{image}}" class="sku-img"/>
+        <image src="{{image}}" class="sku-img" />
         <view class="sku-desc">
             <text class="title">{{title}}</text>
             <view>
                 <view class="price-row">
-                    <l-price value="{{p.mainPrice(price, discountPrice).price}}" color="#157658" value-size="28" autofix/>
-                    <l-price deleted value="{{p.slashedPrice(price, discountPrice).price}}" wx:if="{{p.slashedPrice(price, discountPrice).display}}"color="#999" value-size="26" l-class="discount-price"/>
-                    <view wx:if="{{stock && stock > 10}}" class="stock">库存: {{stock}} 件</view>  
-                    <view wx:if="{{stock && stock <= 10 && stock != 0}}" class="stock-pinch">仅剩: {{stock}} 件</view>  
+                    <l-price value="{{p.mainPrice(price, discountPrice).price}}" color="#157658" value-size="28" autofix />
+                    <l-price deleted value="{{p.slashedPrice(price, discountPrice).price}}" wx:if="{{p.slashedPrice(price, discountPrice).display}}" color="#999" value-size="26" l-class="discount-price" />
+                    <view wx:if="{{stock && stock > 10}}" class="stock">库存: {{stock}} 件</view>
+                    <view wx:if="{{stock && stock <= 10 && stock != 0}}" class="stock-pinch">
+                        仅剩: {{stock}} 件
+                    </view>
                 </view>
             </view>
             <view wx:if="{{!noSpec}}" class="sku-pending">
-                <text wx:if="{{!isIntact}}">请选择: </text>
-                <text wx:else>已选择: </text>
+                <text wx:if="{{!isIntact}}">请选择:</text>
+                <text wx:else>已选择:</text>
                 <text wx:if="{{!isIntact}}">{{missingKeys}}</text>
                 <text wx:else>{{currentValue}}</text>
             </view>
@@ -27,8 +29,14 @@
             <s-fence x="{{index}}" fence="{{item}}" bind:celltap="onCellTap"></s-fence>
         </block>
     </view>
-    <!-- <l-counter /> -->
-    <!-- <view>
-        <l-button></l-button>
-    </view> -->
+    <view class="counter-container">
+        <text>购买数量:</text>
+        <s-counter bind:lintap="onSelectCount"></s-counter>
+    </view>
+</view>
+<view class="bottom-btn" wx:if="{{!outOfStock}}">
+    <text>加入购物车</text>
+</view>
+<view class="bottom-btn out-stock" wx:else>
+    <text>暂时缺货</text>
 </view>

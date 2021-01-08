@@ -1,12 +1,11 @@
+import { Cart } from "../../models/cart.js";
 // components/counter/index.js
-import {Cart} from "../../models/cart";
-
 Component({
   /**
    * Component properties
    */
   properties: {
-    count:{
+    count: {
       type: Number,
       value: Cart.SKU_MIN_COUNT
     },
@@ -31,23 +30,22 @@ Component({
    * Component methods
    */
   methods: {
-    ouOverStack(event){
+    onOverStep: function(event){
       const minOrMaxOut = event.detail.type;
-      if (minOrMaxOut === 'overflow_max'){
+      if (minOrMaxOut === "overflow_max"){
         wx.showToast({
-          icon: 'none',
+          icon: "none",
           duration: 3000,
-          title: '超出最大购买数量'
-        })
-      }
-      if(minOrMaxOut === 'overflow_min'){
+          title: "超出最大购买数量"
+        });
+      } else if (minOrMaxOut === "overflow_min"){
         wx.showToast({
-          icon: 'none',
+          icon: "none",
           duration: 3000,
-          title: `最少需要购买${Cart.SKU_MIN_COUNT}件噢 `
-        })
+          title: `最少需要购买${Cart.SKU_MIN_COUNT}件商品`
+        });
       }
-
+      console.log(event);
     }
   }
 })

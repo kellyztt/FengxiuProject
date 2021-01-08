@@ -3,6 +3,7 @@ import { FenceGroup } from "../../components/models/fence-group.js";
 import { Judger } from "../models/judger.js";
 import { Spu } from "../../models/spu.js";
 import { Cell } from "../models/cell.js";
+import { Cart } from "../../models/cart.js";
 
 Component({
   /**
@@ -26,7 +27,9 @@ Component({
     noSpec: false,
     isIntact: null,
     missingKeys: "",
-    currentValue: ""
+    currentValue: "",
+    outOfStock: false,
+    currentSkuStock: Cart.SKU_MIN_COUNT
   },
 
   observers: {
@@ -56,6 +59,7 @@ Component({
       if (judger.isIntact()){
         const sku = judger.getDeterminateSku();
         this.bindSkuData(sku);
+        this.setStockStatus(sku.stock);
       }
       this.bindTipData();
       this.bindFenceGroupData(judger.fenceGroup);
@@ -66,6 +70,7 @@ Component({
       this.setData({
         noSpec: true
       });
+      this.setStockStatus(spu.sku_list[0].stock);
     },
 
     processHasSpec(spu) {
@@ -76,6 +81,7 @@ Component({
       const defaultSku = fenceGroup.getDefaultSku();
       if (defaultSku) {
         this.bindSkuData(defaultSku);
+        this.setStockStatus(defaultSku.stock);
       } else {
         this.bindSpuData();
       }
@@ -115,6 +121,23 @@ Component({
         currentValue: this.data.judger.getCurrentValues(),
         missingKeys: this.data.judger.getMissingKeys()
       })
+    },
+
+    isOutOfStock(stock){
+      return stock < this.data.currentSkuStock;
+    },
+
+    setStockStatus(stock){
+      this.setData({
+        outOfStock: this.isOutOfStock(stock)
+      });
+    },
+
+    onSelectCount(event){
+      this.setData({
+        currentSkuStock: event.detail.count
+      });
+      this.setStockStatus(this.data.judger.getDeterminateSku().stock);
     }
-  }
+  }  
 })
