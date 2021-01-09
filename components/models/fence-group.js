@@ -45,6 +45,9 @@ class FenceGroup{
         arr.forEach(r => {
             const fence = new Fence(r);
             fence.init();
+            if (this._hasSketchFence() && this._isSketchFence(fence.id)){
+                fence.setFenceSketch(this.skuList);
+            }
             fences.push(fence);
         });
         this.fences = fences;
@@ -83,6 +86,14 @@ class FenceGroup{
         let m = [];
         skuList.forEach(sku=>m.push(sku.specs));
         return new Matrix(m);
+    }
+
+    _hasSketchFence(){
+        return !!this.spu.sketch_spec_id;
+    }
+
+    _isSketchFence(fenceId){
+        return this.spu.sketch_spec_id === fenceId;
     }
 }
 

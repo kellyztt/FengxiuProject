@@ -17,6 +17,17 @@ class Fence{
         this._initCells();
     }
 
+    setFenceSketch(skuList){
+        this.cells.forEach(c => {
+            this._setCellSkuImg(c, skuList);
+        })
+    }
+    
+    _setCellSkuImg(cell, skuList){
+        const sku = skuList.find(s=>s.code.includes(cell.getCellCode()));
+        cell.skuImg = sku.img;
+    }
+
     _initCells(){
         this.specs.forEach(item => {
             //this.pushValueTitle(item.value);

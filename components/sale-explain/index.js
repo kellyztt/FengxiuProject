@@ -4,23 +4,16 @@ Component({
    * Component properties
    */
   properties: {
-    texts: Array
+    explain: Array
   },
 
   /**
    * Component initial data
    */
   data: {
-    _texts: Array
+
   },
 
-  observers: {
-    'texts': function(texts){
-      this.setData({
-        _texts: texts
-      })
-    }
-  },
   /**
    * Component methods
    */

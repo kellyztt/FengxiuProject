@@ -1,9 +1,10 @@
+// components/tab-bar/index.js
 Component({
   /**
    * Component properties
    */
   properties: {
-    cartItemCount: Number
+
   },
 
   /**
@@ -17,17 +18,17 @@ Component({
    * Component methods
    */
   methods: {
-    onGoToHome(event){
-      this.triggerEvent('gotohome');
+    onGoToHome: function(){
+      this.triggerEvent("gotoHome");
     },
-    onGoToCart(event){
-      this.triggerEvent('gotocart');
+    onGoToCart: function(){
+      this.triggerEvent("gotoCart");
     },
-    onAddToCart(event){
-      this.triggerEvent('addtocart')
+    onAddToCart: function(){
+      this.triggerEvent("addToCart");
     },
-    onBuy(event){
-      this.triggerEvent('buy');
+    onBuy: function(){
+      this.triggerEvent("buy");
     }
   }
 })

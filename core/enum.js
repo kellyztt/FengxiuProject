@@ -4,4 +4,9 @@ const CellStatus = {
     WAITING: "waiting"
 }
 
-export { CellStatus }
+const OrderWay = {
+    CART: "cart",
+    BUY: "buy"
+}
+
+export { CellStatus, OrderWay }

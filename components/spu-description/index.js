@@ -11,20 +11,23 @@ Component({
    * Component initial data
    */
   data: {
-    tags: Array
+    tags: []
   },
 
   observers: {
-    'spu': function(spu){
-      if (!spu || !spu.tags){
+    "spu": function(spu){
+      if (!spu){
         return;
       }
-      const tags = spu.tags.split('$');
+      if (!spu.tags){
+        return;
+      }
       this.setData({
-        tags
+        tags: spu.tags.split("$")
       })
     }
   },
+
   /**
    * Component methods
    */

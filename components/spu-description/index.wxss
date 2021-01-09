@@ -1,3 +1,4 @@
+/* components/spu-description/index.wxss */
 .container{
     width: 100%;
     box-sizing: border-box;
@@ -15,67 +16,59 @@
 
 .tags{
     display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .l-tag{
-    margin-right: 6rpx !important;
+    margin-right: 6rpx;
 }
 
-.sub-title{
-    color: #999;
+.subtitle{
     font-size: 28rpx;
+    color: #999;
     font-weight: 400;
-    margin-top: 40rpx;
+    margin-top:40rpx;
     margin-bottom: 16rpx;
 }
 
 .price-row{
     display: flex;
-    align-items: baseline
+    flex-direction: row;
+    align-items: baseline;
 }
 
-.l-price-unit{
-    margin-right: 14rpx !important;
-}
 .discount-price{
     margin-left: 20rpx;
     margin-right: 80rpx;
 }
 
 .discount-tag{
-    position: relative;
+    position: relative !important;
     bottom: 4rpx;
     width: 50rpx;
-    border-radius: 20rpx !important;
+    border-radius:20rpx !important;
 }
 
-.sleeve{
-    font-family: 'sleeve' !important;
-    color: #157658 !important;
+.right{
+    width: 78rpx;
+    height: 120rpx;
+    border-left: 2px dashed #F5F5F5;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .inner{
+    width: 50rpx;
+    height: 120rpx;
+    background-color: #DCEBE6;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 50rpx;
-    height: 120rpx;
-    background-color: #DCEBE6;
 }
 
 .inner text{
-    font-size: 20rpx;
-    color: #157658
-}
-
-.right{
-    margin-left: 20rpx;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    width: 78rpx;
-    height: 120rpx;
-    border-left: 2rpx dashed #F5F5F5;
-
+    font-size:20rpx;
+    color: #157658;
 }

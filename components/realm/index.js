@@ -11,6 +11,7 @@ Component({
    */
   properties: {
     spu: Object,
+    orderWay: String
   },
 
   /**
@@ -42,6 +43,7 @@ Component({
       } else {
         this.processHasSpec(spu);
       }
+      this.triggerSpecEvent();
     }
   },
   /**
@@ -56,13 +58,14 @@ Component({
       cell.status = data.status;
 
       judger.judge(cell, x, y);
-      if (judger.isIntact()){
+      if (judger.isIntact()) {
         const sku = judger.getDeterminateSku();
         this.bindSkuData(sku);
         this.setStockStatus(sku.stock);
       }
       this.bindTipData();
       this.bindFenceGroupData(judger.fenceGroup);
+      this.triggerSpecEvent();
     },
 
     processNoSpec(spu) {
@@ -123,21 +126,37 @@ Component({
       })
     },
 
-    isOutOfStock(stock){
+    isOutOfStock(stock) {
       return stock < this.data.currentSkuStock;
     },
 
-    setStockStatus(stock){
+    setStockStatus(stock) {
       this.setData({
         outOfStock: this.isOutOfStock(stock)
       });
     },
 
-    onSelectCount(event){
+    onSelectCount(event) {
       this.setData({
         currentSkuStock: event.detail.count
       });
       this.setStockStatus(this.data.judger.getDeterminateSku().stock);
+    },
+
+    triggerSpecEvent() {
+      const noSpec = Spu.isNoSpec(this.properties.spu);
+      if (noSpec) {
+        this.triggerEvent("specChange", {
+          noSpec
+        });
+      } else {
+        this.triggerEvent("specChange", {
+          noSpec,
+          isIntact: this.data.judger.isIntact(),
+          currentValue: this.data.judger.getCurrentValues(),
+          missingKeys: this.data.judger.getMissingKeys()
+        });
+      }
     }
-  }  
+  } 
 })

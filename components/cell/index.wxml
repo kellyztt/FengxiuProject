@@ -1,7 +1,8 @@
 <!--components/cell/index.wxml-->
 <view class="container {{c.statusStyle(cell.status).outer}}" bind:tap="onTap">
     <view class="inner-container {{c.statusStyle(cell.status).inner}}">
-        <text>{{cell.title}}</text>
+       <image mode="aspectFit" wx:if="{{cell.skuImg}}" src="{{cell.skuImg}}" class="img"/>
+       <text>{{cell.title}}</text>
     </view>
 </view>
 
