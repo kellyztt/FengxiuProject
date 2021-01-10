@@ -1,53 +1,36 @@
-<scroll-view style="height:{{h}}rpx;" scroll-y>
-    <swiper class="top"
-            autoplay
-            indicator-dots
-    >
-        <block wx:for="{{spu.spu_img_list}}">
+<!-- pages/detail/detail.wxml -->
+<!-- <view class="container">
+</view> -->
+<scroll-view scroll-y style="height:{{h}}rpx;">
+    <swiper class="top" autoplay indicator-dots>
+        <block wx:for="{{spu.spu_detail_img_list}}" wx:key="index">
             <swiper-item>
-                <image class="top" mode="aspectFill" src="{{item.img}}"></image>
+                <image src="{{item.img}}" mode="aspectFill" class="top" />
             </swiper-item>
         </block>
     </swiper>
     <s-spu-description spu="{{spu}}"></s-spu-description>
-    <view class="sku-pending" wx:if="{{!specs.noSpec}}" bind:tap="onAddToCart">
-        <view class="specs">
-            <text wx:if="{{!specs.skuIntact}}">请选择:</text>
-            <text wx:else>已选:</text>
-            <text wx:if="{{!specs.skuIntact}}">{{specs.missingKeys}}</text>
-            <text wx:else>{{specs.currentValues}}</text>
+    <view bind:tap="onAddToCart" wx:if="{{!spec.noSpec}}" class="sku-pending">
+        <view class="spec">
+            <text wx:if="{{!spec.isIntact}}">请选择:</text>
+            <text wx:else>已选择:</text>
+            <text wx:if="{{!spec.isIntact}}">{{missingKeys}}</text>
+            <text wx:else>{{spec.currentValue}}</text>
         </view>
-        <view class="arrow-right">
+        <view class="arrow-right" >
             <l-icon name="right" color="#157658" size="24"></l-icon>
         </view>
     </view>
-
     <view class="explain">
-        <s-sale-explain texts="{{explain}}"></s-sale-explain>
+        <s-sale-explain explain="{{explain}}"></s-sale-explain>
     </view>
-
     <view class="detail-img-container">
-        <block wx:for="{{spu.spu_detail_img_list}}" wx:key="{{index}}">
-            <image mode="widthFix" src="{{item.img}}" class="detail-image"></image>
+        <block wx:for="{{spu.spu_detail_img_list}}" wx:key="index">
+            <image src="{{item.img}}" mode="widthFix" class="detail-img"/>
         </block>
     </view>
-
 </scroll-view>
-
-<l-popup show="{{showRealm}}" content-align="bottom">
-    <s-realm spu="{{spu}}"
-             order-way="{{orderWay}}"
-             bind:specChange="onSpecChange"
-             bind:shopping="onShopping"
-    > </s-realm>
+<l-popup show="{{showRealm}}">
+    <s-realm orderWay="{{orderWay}}" spu="{{spu}}" bind:specChange="onSpecChange"></s-realm>
 </l-popup>
-
-<s-tabbar bind:gotohome="onGoToHome"
-          bind:gotocart="onGoToCart"
-          bind:addtocart="onAddToCart"
-          bind:buy="onBuy"
-          class="tabbar"
-          cart-item-count="{{cartItemCount}}"
-></s-tabbar>
-
-
+<s-tabbar class="tabbar" bind:gotoHome="onGotoHome" bind:gotoCart="onGotoCart" bind:addToCart="onAddToCart" bind:buy="onBuy"></s-tabbar>

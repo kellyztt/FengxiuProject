@@ -1,14 +1,12 @@
-import {Http} from "../utils/httpUtils";
+import { Http } from "../utils/http.js";
 
 class SaleExplain{
     static async getFixed(){
-        const explains = await Http.request({
-            url: '/sale_explain/fixed'
+        const arr = await Http.request({
+            url: "sale_explain/fixed"
         });
-        return explains.map(item=>item.text);
+        return arr.map(f => f.text);
     }
 }
 
-export {
-    SaleExplain
-}
+export { SaleExplain }

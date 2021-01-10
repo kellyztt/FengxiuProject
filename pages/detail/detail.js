@@ -1,19 +1,21 @@
-// pages/detail/detail.js
-import {SPU} from "../../models/spu";
-import {OrderWay} from "../../core/enum";
-import {SaleExplain} from "../../models/sale-explain";
-import {getWindowHeightRpx} from "../../utils/system";
-import {CartItem} from "../../models/cart-item";
-import {Cart} from "../../models/cart";
+import { Spu } from "../../models/spu.js";
+import { OrderWay } from "../../core/enum.js";
+import { SaleExplain } from "../../models/sale-explain.js";
+import { getWindowHeightRpx } from "../../utils/system.js";
 
+// pages/detail/detail.js
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    cartItemCount: 0,
-    showRealm: false
+    spu: null,
+    showRealm: false,
+    orderWay: OrderWay.CART,
+    spec: null,
+    explain: null,
+    h: 0
   },
 
   /**
@@ -21,115 +23,60 @@ Page({
    */
   onLoad: async function (options) {
     const pid = options.pid;
-    const spu = await SPU.getSpuDetail(pid);
+    const spu = await Spu.getDetail(pid);
     const explain = await SaleExplain.getFixed();
-    const windowHeight = await getWindowHeightRpx();
-    const h = windowHeight - 100;
     this.setData({
       spu,
-      explain,
-      h
+      explain
+    });  
+    this.calculateHeight();
+  },
+
+  onSpecChange: function(event){
+    this.setData({
+      spec: event.detail
+    })
+  },
+
+  onGotoHome: function(){
+    wx.switchTab({
+      url: "/pages/home/home"
     });
-    this.updateCartItemCount();
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page show
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * Called when user click on the top right corner to share
-   */
-  onShareAppMessage: function () {
-
-  },
-
-  onGoToHome(){
+  onGotoCart: function(){
     wx.switchTab({
-      url: '/pages/home/home'
-    })
+      url: "/pages/cart/cart"
+    });
   },
 
-  onGoToCart(){
-    wx.switchTab({
-      url: '/pages/cart/cart'
-    })
+  onAddToCart: function(){
+    this.setData({
+      showRealm: true,
+      orderWay: OrderWay.CART
+    });
   },
 
-  onBuy(){
+  onBuy: function(){
     this.setData({
       showRealm: true,
       orderWay: OrderWay.BUY
     });
   },
 
-  onAddToCart(){
+  async calculateHeight(){
+    const windowHeight = await getWindowHeightRpx();
+    const h = windowHeight - 100;
     this.setData({
-      showRealm: true,
-      orderWay: OrderWay.CART
-    });
-  },
-  onSpecChange(event){
-    this.setData({
-      specs: event.detail
-    });
-  },
-
-  onShopping(event){
-    console.log(event);
-    const chosenSku = event.detail.sku;
-    const skuCount = event.detail.skuCount;
-    if (event.detail.orderWay == OrderWay.CART){
-      const cart = new Cart();
-      const cartItem = new CartItem(chosenSku, skuCount);
-      cart.addItem(cartItem);
-      this.updateCartItemCount();
-    }
-  },
-
-  updateCartItemCount(){
-    const cart = new Cart();
-    this.setData({
-      cartItemCount: cart.getCartItemCount(),
-      showRealm: false
+      h
     })
+  },
+
+
+  /**
+   * Called when user click on the top right corner to share
+   */
+  onShareAppMessage: function () {
+
   }
 })
