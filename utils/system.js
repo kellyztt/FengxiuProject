@@ -1,22 +1,21 @@
-import {promisic, px2rpx} from "../miniprogram_npm/lin-ui/utils/util";
+import { promisic, px2rpx } from "../miniprogram_npm/lin-ui/utils/util.js";
 
-const getSystemSize = async function(){
-    const res = await promisic(wx.getSystemInfo)();
+const getWindowSize = async function () {
+    const system = await promisic(wx.getSystemInfo)();
     return {
-        windowHeight: res.windowHeight,
-        widowWidth: res.windowWidth,
-        screenWidth: res.screenWidth,
-        screenHeight: res.screenHeight
+        screenHeight: system.screenHeight,
+        screenWidth: system.screenWidth,
+        windowHeight: system.windowHeight,
+        windowWidth: system.windowWidth
     }
 }
 
 const getWindowHeightRpx = async function(){
-    const res = await getSystemSize();
-    const h = px2rpx(res.windowHeight);
-    return h;
+    const { windowHeight } = await getWindowSize();
+    return px2rpx(windowHeight);
 }
 
 export {
-    getSystemSize,
+    getWindowSize,
     getWindowHeightRpx
 }
