@@ -6,26 +6,28 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    background-color: #fff;
 }
+
 .inner-container{
     width: 730rpx;
     height: 300rpx;
-    border: 1px dashed #DCEBE6;
+    border: 1px dashed #DCEBEB
 }
-/*设置width是为了扩大触碰范围，只要不超过grid自动计算的大小就行*/
+
 .grid-item{
-    witdh:200rpx;
+    width: 200rpx;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+
 .img{
-    height: 60rpx;
     width: 60rpx;
+    height: 60rpx;
 }
-.text{
+
+.text {
     margin-top: 6rpx;
     font-size: 24rpx;
-    color: #333333;
+    color: #333;
 }

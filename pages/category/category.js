@@ -1,109 +1,83 @@
 // pages/category/category.js
-import {getSystemSize, getWindowHeightRpx} from "../../utils/system";
-import {Categories} from "../../models/categories";
-import { SpuListType } from "../../core/enum";
+import { getWindowHeightRpx } from "../../utils/system.js";
+import { Categories } from "../../models/categories.js";
+import { SpuListType } from "../../core/enum.js";
 
 Page({
 
-    /**
-     * Page initial data
-     */
-    data: {
-        categories: Object,
-        defaultRootId: 2,
-        roots: Array,
-        currentSubs: Array,
-        currentBannerImg: String
-    },
+  /**
+   * Page initial data
+   */
+  data: {
+    segHeight: 0,
+    categories: null,
+    roots: [],
+    subs: [],
+    defaultRootId: 2,
+    currentRoot: null,
+  },
 
-    /**
-     * Lifecycle function--Called when page load
-     */
-    onLoad: function (options) {
-        this.setDynamicSegmentHeight();
-        this.initCategoryData();
-    },
+  onGotoSearch: function(){
+    wx.navigateTo({
+      url: "/pages/search/search"
+    })
+  },
 
-    async setDynamicSegmentHeight() {
-        const res = await getSystemSize();
-        const windowHeightRpx = await getWindowHeightRpx();
-        //searchbox:60 margin-top:20 border:2
-        const h = windowHeightRpx - 60 - 20 - 2;
-        this.setData({
-            h
-        })
-    },
+  /**
+   * Lifecycle function--Called when page load
+   */
+  onLoad: async function (options) {
+    this.setDynamicSegmentHeight();
+    this.initCategoryData();
+  },
 
-    async initCategoryData() {
-        const categories = new Categories();
-        this.data.categories = categories;
-        await categories.getAll();
-        const roots = categories.getRoots();
-        const defaultRoot = this.getDefaultRoot(roots);
-        const currentSubs = categories.getSubs(defaultRoot.id);
-        this.setData({
-            roots,
-            currentSubs,
-            currentBannerImg: defaultRoot.img
-        })
-    },
+  async setDynamicSegmentHeight(){
+    const widowHeight = await getWindowHeightRpx();
+    const segHeight = widowHeight - 60 - 2 - 20;
+    this.setData ({
+      segHeight
+    });
+  },
 
-    getDefaultRoot(roots){
-        let defaultRoot = roots.find(item => item.id === this.data.defaultRootId);
-        if (!defaultRoot){
-            defaultRoot = roots[0];
-        }
-        return defaultRoot;
-    },
-
-    /**
-     * Lifecycle function--Called when page show
-     */
-    onShow: function () {
-
-    },
-
-    /**
-     * Page event handler function--Called when user drop down
-     */
-    onPullDownRefresh: function () {
-
-    },
-
-    /**
-     * Called when page reach bottom
-     */
-    onReachBottom: function () {
-
-    },
-
-    /**
-     * Called when user click on the top right corner to share
-     */
-    onShareAppMessage: function () {
-
-    },
-
-    onGoToSearch(event) {
-        wx.navigateTo({
-            url: "/pages/search/search"
-        })
-    },
-
-    onSegChange(event){
-        const rootId = event.detail.activeKey;
-        const currentSubs = this.data.categories.getSubs(rootId);
-        const root = this.data.categories.getRoot(rootId);
-        this.setData({
-            currentSubs,
-            currentBannerImg: root.img
-        })
-    },
-
-    onJumpToSpuList(event){
-        const cid = event.detail.cid;
-        wx.navigateTo({
-            url: `/pages/spu-list/spu-list?cid=${cid}&type=${SpuListType.SUB_CATEGORY}`
-        })
+  async initCategoryData(){
+    const categories = new Categories();
+    await categories.getAll();
+    const roots = categories.getRoots();
+    const defaultRoot = categories.getRoot(this.data.defaultRootId);
+    if (!defaultRoot){
+      defaultRoot = roots[0];
     }
+    const subs = categories.getSubs(defaultRoot.id);
+    this.setData({
+      categories,
+      roots,
+      subs,
+      currentRoot: defaultRoot
+    })
+  },
+
+  onSegChange(event){
+    const rootId = event.detail.activeKey;
+    const currentRoot = this.data.categories.getRoot(rootId);
+    const subs = this.data.categories.getSubs(rootId);
+    this.setData({
+      currentRoot,
+      subs
+    });
+  },
+
+  onJumpToSpuList(event){
+    const cid = event.detail.cid;
+    wx.navigateTo({
+      url: `/pages/spu-list/spu-list?cid=${cid}&type=${SpuListType.SUB_CATEGORY}`
+    })
+  },
+
+
+  /**
+   * Called when user click on the top right corner to share
+   */
+  onShareAppMessage: function () {
+
+  }
 })

@@ -1,15 +1,15 @@
+<!-- components/sub-category/index.wxml -->
 <view class="container">
-    <image wx:if="{{bannerImg}}" mode="widthFix" src="{{bannerImg}}"></image>
-    <text class="title">- 全部分类 -</text>
-    <l-grid class="inner-container" >
+    <image src="{{bannerImg}}" class="banner" />
+    <text class="title">--全部分类--</text>
+    <l-grid l-class="inner-container">
         <block wx:for="{{categories}}">
             <l-grid-item key="{{item.id}}" slot="{{item.id}}" bind:linitemtap="onTapGridItem">
                 <view class="grid-item">
-                    <image mode="aspectFit" class="img" src="{{item.img}}"></image>
+                    <image class="img" src="{{item.img}}" />
                     <text>{{item.name}}</text>
                 </view>
             </l-grid-item>
         </block>
     </l-grid>
 </view>
-

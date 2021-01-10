@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "s-sub-category": "/components/sub-category/index"
+    "s-sub-cateogry": "/components/sub-category/index"
   }
 }

@@ -1,38 +1,29 @@
+<!--pages/category/category.wxml-->
 <view class="container">
     <view class="search-container">
-        <l-button width="710"
-                  height="60"
-                  icon="research"
-                  icon-size="24"
-                  icon-color="#C4C9D2"
-                  shape="square"
-                  l-class="search-btn"
-                  bind:lintap="onGoToSearch"
-        >搜索商品</l-button>
+        <l-button shape="square" width="710" height="60" icon="research" icon-size="24" icon-color="#C4C9D2" l-class="search-btn" bind:lintap="onGotoSearch">
+            搜索商品
+        </l-button>
     </view>
     <view class="main">
         <l-segment
-                placement="left"
-                item-height="90"
-                height="{{h}}"
-                width="160"
-                even="{{false}}"
-                l-active-class="segment-item-active"
-                l-inactive-class="segment-item"
-                l-line-class="l-seg-line"
-                active-key="{{defaultRootId}}"
-                scrollable
-                bind:linchange="onSegChange"
+            even="{{false}}"
+            width="160"
+            height="{{segHeight}}"
+            placement="left"
+            l-active-class="segment-item-active"
+            l-inactive-class="segment-item"
+            l-line-class="l-seg-line"
+            scrollable
+            active-key="{{currentRoot.id}}"
+            bind:linchange="onSegChange"
         >
-            <block wx:for="{{roots}}" key="{{index}}">
+            <block wx:for="{{roots}}" wx:key="index">
                 <l-segment-item key="{{item.id}}" tab="{{item.name}}"></l-segment-item>
             </block>
         </l-segment>
         <view class="right">
-            <s-sub-category 
-            categories="{{currentSubs}}" 
-            bannerImg="{{currentBannerImg}}"
-            bind:itemTap="onJumpToSpuList"></s-sub-category>
+            <s-sub-cateogry bannerImg="{{currentRoot.img}}" categories="{{subs}}" bind:itemtap="onJumpToSpuList"></s-sub-cateogry>
         </view>
     </view>
 </view>

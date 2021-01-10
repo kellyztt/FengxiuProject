@@ -4,8 +4,8 @@ Component({
    * Component properties
    */
   properties: {
-    categories: Array,
-    bannerImg: String
+    bannerImg: String,
+    categories: Array
   },
 
   /**
@@ -19,12 +19,10 @@ Component({
    * Component methods
    */
   methods: {
-    onTapGridItem(event){
-      const id = event.detail.key;
-      this.triggerEvent('itemTap', {
-        cid: id
+    onTapGridItem: function(event){
+      this.triggerEvent("itemtap", {
+        cid: event.detail.key
       })
     }
-
   }
 })
