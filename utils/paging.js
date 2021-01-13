@@ -5,12 +5,14 @@ class Paging{
     list=[];
     locker = false;
     url;
+    req;
     moreData = true;
 
-    constructor(url, count=10, start=0){
+    constructor(req, count=10, start=0){
         this.count = count;
         this.start = start;
-        this.url = url;
+        this.req = req;
+        this.url = req.url
     }
 
     async getMoreData(){
@@ -40,9 +42,8 @@ class Paging{
     }
 
     async _achieveData(){
-        const result = await Http.request({
-            url: this._getCurrentRequest()
-        });
+        const req = this._getCurrentRequest()
+        const result = await Http.request(req);
         if (!result){
             return null;
         }
@@ -75,7 +76,8 @@ class Paging{
         } else {
             url += "?" + param;
         }
-        return url;
+        this.req.url = url;
+        return this.req;
     }
 
     _moreData(totalPage, pageNum){

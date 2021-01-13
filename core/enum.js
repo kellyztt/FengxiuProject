@@ -9,4 +9,9 @@ const OrderWay = {
     BUY: "buy"
 }
 
-export { CellStatus, OrderWay }
+const SpuListType = {
+    CATEGORY: "category",
+    SUB_CATEGORY: "sub-category"
+}
+
+export { CellStatus, OrderWay, SpuListType }

@@ -1,23 +1,19 @@
-page{
-    background-color: #fff;
+/* pages/search/search.wxss */
+page {
+    background-color: #FFF;
 }
-
 .header{
-    background-color: #fff;
-    border-bottom: 1px solid #f3f3f3;
-    padding-bottom: 14rpx;
-    position: fixed;
-    z-index: 77;
     width: 100%;
+    background-color: #FFF;
+    border-bottom: 1rpx solid #F3F3F3;
+    padding-bottom: 14rpx;
+    position: fiexed;
     top: 0;
-}
-
-.input{
-    border-radius: 0 !important;
+    z-index: 77;
 }
 
 .container{
-    padding-top: 70rpx;
+    
 }
 
 .history-container{
@@ -27,7 +23,7 @@ page{
 
 .history-title{
     display: flex;
-    align-items: center;
+    flex-direction: row;
     margin-top: 38rpx;
 }
 
@@ -38,28 +34,29 @@ page{
     margin-right: 22rpx;
 }
 
-.icon{
-    margin-right: 30rpx;
-}
-
 .history-title > text{
     font-size: 28rpx;
     color: #333;
 }
 
+.icon{
+    margin-right: 30rpx;
+}
+
 .history-tags{
     width: 100%;
     box-sizing: border-box;
+    margin-top: 20rpx;
+    padding-left: 30rpx;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    margin-top: 20rpx;
-    padding-left: 30rpx;
     flex-wrap: wrap;
+    
 }
 
 .tag{
-    background-color: #f3f3f3 !important;
+    background-color: #F3F3F3 !important;
     color: #666 !important;
     margin-right: 20rpx;
     margin-bottom: 20rpx;
@@ -67,18 +64,18 @@ page{
 
 .tag-selected{
     background-color: #DCEBE6 !important;
-    color: #157258 !important;
-    margin-right: 20rpx !important;
-    margin-bottom: 20rpx !important;
+    color: #157658 !important;
+    margin-right: 20rpx;
+    margin-bottom: 20rpx;
 }
 
 .spu-bottom{
     box-sizing: border-box;
     width: 100%;
-    padding: 18rpx 18rpx 0;
+    padding: 18rpx;
+    padding-bottom: 0;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     flex-wrap: wrap;
-
+    justify-content: space-between;
 }

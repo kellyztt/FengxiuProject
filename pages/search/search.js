@@ -1,69 +1,78 @@
 // pages/search/search.js
-import {HistoryKeyWord} from "../../models/historyKeyword";
-import {Tags} from "../../models/Tags";
-import {Search} from "../../models/search";
-import {showToast} from "../../utils/ui";
+import { HistoryKeywords } from "../../models/history-keywords.js";
+import { Tag } from "../../models/tag.js"; 
+import { showToast } from "../../utils/ui.js";
+import { Search } from "../../models/search.js";
 
-const history = new HistoryKeyWord();
+const historyKeywords = new HistoryKeywords();
 Page({
 
   /**
    * Page initial data
    */
   data: {
-    loadingType: 'loading'
+    history: [],
+    hotTags: [],
+    search: false,
+    items: []
   },
 
   /**
    * Lifecycle function--Called when page load
    */
   onLoad: async function (options) {
-    const historyTags = history.get();
-    const hotTags = await Tags.getSearchTags();
+    const historyTags = historyKeywords.get();
+    const hotTags = await Tag.getSearchTags();
     this.setData({
       historyTags,
       hotTags
     })
   },
 
-  /**
-   * Lifecycle function--Called when page is initially rendered
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * Page event handler function--Called when user drop down
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * Called when page reach bottom
-   */
-  onReachBottom: async function () {
+  onSearch: async function(event){
     this.setData({
-      bottomLoading: true
-    })
-    const data = await this.data.paging.getMoreData();
-    if (!data){
-      this.setData({
-        loadingType: 'end'
-      })
+      search: true,
+      items: []
+    });
+    let keyword = event.detail.value || event.detail.name;
+    keyword = keyword.trim();
+    if (!keyword){
+      showToast("请输入关键词")
       return;
     }
-    wx.lin.renderWaterFlow(data.items);
-    if (!data.moreData){
-      this.setData({
-        loadingType: 'end'
-      })
-    }
+    wx.lin.showLoading({
+      color: "#157658",
+      type: "flash",
+      fullScreen: true
+    })
+    historyKeywords.save(keyword);
+    const paging = Search.search(keyword);
+    const data = await paging.getMoreData();
+    console.log(data);
     this.bindItems(data);
-    if (!data.moreData){
+    this.setData({
+      historyTags: historyKeywords.get()
+    })
+    wx.lin.hideLoading()
+  },
+
+  onDeleteHistory: function(){
+    historyKeywords.clear();
+    this.setData({
+      historyTags: []
+    })
+  },
+
+  onCancel: function(){
+    this.setData({
+      search: false
+    })
+  },
+
+  bindItems: function(data){
+    if (data.accumulator.length != 0){
       this.setData({
-        loadingType: 'end'
+        items: data.accumulator
       })
     }
   },
@@ -73,54 +82,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  async onSearch(event){
-    this.setData({
-      search: true,
-      items: []
-    })
-    const keyWord = event.detail.value || event.detail.name;
-    if (!keyWord){
-      //显示toast
-      showToast("请输入关键字");
-      return;
-    }
-    history.save(keyWord);
-    const paging = Search.search(keyWord);
-    this.data.paging = paging;
-    //在wx对象上挂载lin属性
-    wx.lin.showLoading({
-      color: '#157658',
-      type: 'flash',
-      fullScreen: true
-    })
-    const data = await paging.getMoreData();
-    wx.lin.hideLoading();
-    this.setData({
-      historyTags: history.get()
-    });
-    this.bindItems(data);
-  },
-
-  onCancle(event){
-    this.setData({
-      search: false
-    })
-  },
-
-  bindItems(data){
-    if (data.accumulator.length !== 0){
-      this.setData({
-        items: data.accumulator
-      })
-    }
-  },
-
-  onDeleteHistory(event){
-    history.clear();
-    this.setData({
-      historyTags: history.get()
-    });
   }
 })

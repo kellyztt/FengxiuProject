@@ -1,11 +1,9 @@
 const showToast = function(title){
     wx.showToast({
-        icon: 'none',
+        icon: "none",
         duration: 2000,
-        title
-    });
+        title: title
+    })
 }
 
-export {
-    showToast
-}
+export { showToast }

@@ -1,13 +1,8 @@
-import {Paging} from "../utils/paging";
-
+import { Paging } from "../utils/paging.js";
 class Search{
-    static search(word){
-        return new Paging({
-            url: `/search?q=${word}`
-        })
+    static search(keyword){
+        return new Paging({url: `search?q=${keyword}`});
     }
 }
 
-export {
-    Search
-}
+export { Search }

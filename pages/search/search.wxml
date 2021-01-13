@@ -1,20 +1,13 @@
+<!-- pages/search/search.wxml -->
 <view class="header">
-    <l-search-bar placeholder="请输入商品名称"
-                  maxLength="9"
-                  bg-color="#f1f1f1"
-                  l-class="input"
-                  bind:linconfirm="onSearch"
-                  bind:lincancel="onCancle"
-    >
-    </l-search-bar>
+    <l-search-bar l-class="input" max-length="9" bg-color="F1F1F1" placeholder="请输入商品名称" bind:linconfirm="onSearch" bind:lincancel="onCancel"></l-search-bar>
 </view>
-
 <view class="container">
     <view wx:if="{{!search}}">
         <view class="history-container" wx:if="{{historyTags.length !== 0}}">
             <view class="history-title">
                 <view class="slide"></view>
-                <text>历史搜索</text>
+                <title>历史搜索</title>
                 <view style="flex:1"></view>
                 <view class="icon" bind:tap="onDeleteHistory">
                     <l-icon name="delete" color="#999" size="32"></l-icon>
@@ -22,36 +15,31 @@
             </view>
             <view class="history-tags">
                 <block wx:for="{{historyTags}}" wx:key="index">
-                    <l-tag l-class="tag" name="{{item}}" bind:lintap="onSearch">
-                        {{item}}
-                    </l-tag>
+                    <l-tag bind:lintap="onSearch" l-class="tag" name="{{item}}">{{item}}</l-tag>
                 </block>
             </view>
         </view>
         <view class="history-container">
             <view class="history-title">
                 <view class="slide"></view>
-                <text>热门搜索</text>
+                <title>热门搜索</title>
                 <view style="flex:1"></view>
             </view>
             <view class="history-tags">
                 <block wx:for="{{hotTags}}" wx:key="index">
-                    <l-tag l-class="tag" bind:lintap="onSearch" name="{{item.title}}" l-select-class="tag-selected" select="{{item.highlight===1}}">
+                    <l-tag bind:lintap="onSearch" l-class="tag" select="{{item.highlight}}" l-select-class="tag-selected" name="{{item.title}}">
                         {{item.title}}
                     </l-tag>
                 </block>
             </view>
         </view>
     </view>
-    <view wx:if="{{search}}">
-        <l-loadmore show="{{bottomLoading}}" end-text="---end---" type="{{loadingType}}">
-            <view slot="content" hidden="{{!search}}" class="spu-bottom">
-                <block wx:for="{{items}}">
-                    <s-spu-preview-r data="{{item}}"></s-spu-preview-r>
-                </block>
-            </view>
+    <view wx:else >
+        <l-loadmore show end-text="--没有更多了--" loading-text="努力加载中...">
+            <block slot="content" wx:for="{{items}}" wx:key="index" class="spu-bottom">
+                <s-spu-preview-r data="{{item}}"></s-spu-preview-r>
+            </block>
         </l-loadmore>
-
     </view>
-    <l-loading></l-loading>
 </view>
+<l-loading></l-loading>
