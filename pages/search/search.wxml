@@ -34,11 +34,13 @@
             </view>
         </view>
     </view>
-    <view wx:else >
-        <l-loadmore show end-text="--没有更多了--" loading-text="努力加载中...">
-            <block slot="content" wx:for="{{items}}" wx:key="index" class="spu-bottom">
-                <s-spu-preview-r data="{{item}}"></s-spu-preview-r>
-            </block>
+    <view wx:else>
+        <l-loadmore show end-text="--没有更多了--" loading-text="努力加载中..." type="{{loadingType}}">
+            <view slot="content" hidden="{{!search}}" class="spu-bottom">
+                <block wx:for="{{items}}" wx:key="index">
+                    <s-spu-preview-r data="{{item}}"></s-spu-preview-r>
+                </block>
+            </view>
         </l-loadmore>
     </view>
 </view>

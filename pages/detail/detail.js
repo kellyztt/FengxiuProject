@@ -2,7 +2,10 @@ import { Spu } from "../../models/spu.js";
 import { OrderWay } from "../../core/enum.js";
 import { SaleExplain } from "../../models/sale-explain.js";
 import { getWindowHeightRpx } from "../../utils/system.js";
+import { Cart } from "../../models/cart.js";
+import { CartItem } from "../../models/cart-item.js";
 
+const cart = new Cart();
 // pages/detail/detail.js
 Page({
 
@@ -15,7 +18,8 @@ Page({
     orderWay: OrderWay.CART,
     spec: null,
     explain: null,
-    h: 0
+    h: 0,
+    cartItemCount: 0
   },
 
   /**
@@ -27,7 +31,8 @@ Page({
     const explain = await SaleExplain.getFixed();
     this.setData({
       spu,
-      explain
+      explain,
+      cartItemCount: cart.getCartItemCount()
     });  
     this.calculateHeight();
   },
@@ -72,6 +77,24 @@ Page({
     })
   },
 
+  onShopping: function(event){
+    const { sku, skuCount, orderWay } = event.detail;
+    if (orderWay === OrderWay.CART){
+      const cartItem = new CartItem(sku, skuCount);
+      cart.addItem(cartItem);
+    }
+    if (orderWay === OrderWay.BUY){
+
+    }
+    this._updateCartItemCount();
+  },
+
+  _updateCartItemCount(){
+    this.setData({
+      cartItemCount: cart.getCartItemCount(),
+      showRealm: false
+    })
+  },
 
   /**
    * Called when user click on the top right corner to share

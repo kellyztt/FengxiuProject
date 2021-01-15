@@ -1,7 +1,7 @@
 class CartItem{
-    skuId = null;
-    count = 0;
-    sku = null;
+    sku;
+    skuId;
+    count;
     checked = true;
 
     constructor(sku, count){

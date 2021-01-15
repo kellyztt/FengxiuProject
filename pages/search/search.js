@@ -14,7 +14,8 @@ Page({
     history: [],
     hotTags: [],
     search: false,
-    items: []
+    items: [],
+    loadingType: ""
   },
 
   /**
@@ -51,7 +52,8 @@ Page({
     console.log(data);
     this.bindItems(data);
     this.setData({
-      historyTags: historyKeywords.get()
+      historyTags: historyKeywords.get(),
+      
     })
     wx.lin.hideLoading()
   },
@@ -82,5 +84,23 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+
+  onReachBottom: async function () {
+    this.setData({
+      loadmore: true
+    });
+    const paging = this.data.spuPaging;
+    const data = await paging.getMoreData();
+    if (!data){
+     return;
+   }
+   this.bindItems(data);
+   if (!data.moreData){
+     this.setData({
+       loadingType: "end"
+     })
+   }
+   
+ },
 })
