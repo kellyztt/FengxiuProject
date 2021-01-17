@@ -18,13 +18,13 @@ Component({
    * Component methods
    */
   methods: {
-    onCheck(event){
+    onCheck:function(){
       let checked = this.properties.checked;
       checked = !checked;
       this.setData({
         checked
       });
-      this.triggerEvent('check',{
+      this.triggerEvent("check", {
         checked
       }, {
         bubbles: true,

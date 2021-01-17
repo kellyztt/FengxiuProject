@@ -1,3 +1,4 @@
+/* components/check-box/index.wxss */
 .container{
     width: 40rpx;
     height: 40rpx;
@@ -14,13 +15,13 @@
 
 .bg-unchecked{
     background-color: #DCEBE6;
-    border: 2rpx solid #157658;
+    border: 2px solid #157658;
 }
 
 .sleeve{
-    font-family: sleeve !important;
-    font-size:7rpx;
+    font-family: "sleeve";
+    font-size: 7rpx;
     font-style: normal;
-    color: #fff !important;
+    color: #FFF;
     line-height: 28rpx;
 }
