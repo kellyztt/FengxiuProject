@@ -1,80 +1,79 @@
 // components/cart-item/index.js
-import {parseSpecValue} from "../../utils/sku";
-import {Cart} from "../../models/cart";
-
+import { Cart } from "../../models/cart.js";
+import { parseSpecValue } from "../../utils/sku.js";
 const cart = new Cart();
 Component({
   /**
    * Component properties
    */
   properties: {
-    cartItem: Object,
+    cartItem: Object
   },
 
   /**
    * Component initial data
    */
   data: {
-    soldOut: Boolean,
-    online: Boolean,
-    discount: Boolean,
-    specStr: String,
+    online: true,
+    soldOut: false,
+    discount: false,
+    specStr: "",
     stock: Cart.SKU_MAX_COUNT,
-    skuCount: Number
+    count: 1
+  },
+
+  observers: {
+    "cartItem": function(cartItem){
+      if (!cartItem){
+        return;
+      }
+      const specStr = parseSpecValue(cartItem.sku.specs);
+      const count = cartItem.count;
+      const { discount_price, stock } = cartItem.sku;
+      const soldOut = Cart.isSoldOut(cartItem);
+      const online = Cart.isOnline(cartItem);
+      this.setData({
+        specStr,
+        online,
+        soldOut,
+        discount: discount_price !== null,
+        stock,
+        count
+      })
+    }
   },
 
   /**
    * Component methods
    */
   methods: {
-    onDelete(event){
-      const skuId = this.properties.cartItem.skuId;
+    checkedItem: function(event){
+      this.properties.cartItem.checked = !this.properties.cartItem.checkedItem;
+      cart.checkItem(this.properties.cartItem.sku.id);
+      this.triggerEvent("itemcheck", {
+
+      });
+    },
+
+    onOutNumber: function(){
+
+    },
+
+    onSelectCount: function(event){
+      const count = event.detail.count;
+      cart.replaceItemCount(this.properties.cartItem.sku.id, count);
+      this.triggerEvent("countfloat")
+    },
+
+    onDelete: function(event){
+      const skuId = this.properties.cartItem.sku.id
       cart.removeItem(skuId);
       this.setData({
         cartItem: null
-      });
-      //calculate total
-      this.triggerEvent('itemdelete', {
+      })
+      this.triggerEvent("itemdelete", {
         skuId
-      })
-    },
-
-    checkedItem(event){
-      const checked = event.detail.checked;
-      cart.checkItem(this.properties.cartItem.skuId);
-      //手动更新item的状态
-      this.properties.cartItem.checked = checked;
-      this.triggerEvent('itemcheck', {
-
-      })
-    },
-
-    onSelectCount(event){
-      let newCount = event.detail.count;
-      cart.replaceItemCount(this.properties.cartItem.skuId, newCount)
-      this.triggerEvent('countfloat');
-    }
-  },
-
-  observers:{
-
-    'cartItem': function (cartItem) {
-      if(!cartItem){
-        return;
-      }
-      const specStr = parseSpecValue(cartItem.sku.specs);
-      const discount = cartItem.sku.discount_price ? true : false;
-      const soldOut = Cart.isSoldOut(cartItem);
-      const online = Cart.isOnline(cartItem);
-      this.setData({
-        specStr,
-        discount,
-        soldOut,
-        online,
-        stock:cartItem.sku.stock,
-        skuCount: cartItem.count
       });
     }
-
   }
 })

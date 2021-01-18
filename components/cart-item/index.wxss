@@ -1,76 +1,77 @@
+/* components/cart-item/index.wxss */
 .container{
     box-sizing: border-box;
     width: 100%;
     height: 220rpx;
     display: flex;
     flex-direction: row;
+    align-items: center;
     padding: 30rpx;
-    border-top: 2rpx solid #f3f3f3;
+    border: 2rpx solid #F3F3F3;
 }
 
-.checkbox{
+.check-box{
+    margin-right: 30rpx;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-right: 30rpx;
 }
 
 .sku-container{
     height: 160rpx;
-    flex: 1 1 auto;
     display: flex;
     flex-direction: row;
+    flex: 1 1 auto;
 }
 
-.image-container{
-    position: relative;
+.img-container{
     height: 160rpx;
     width: 160rpx;
     margin-right: 20rpx;
+    position: relative;
 }
 
-.left{
+.img-sold-out{
     width: 100%;
     height: 100%;
-}
-
-.image-sold-out{
-    background: #157658;
     position: absolute;
-    height: 100%;
-    width: 100%;
+    top: 0;   
+    background-color: #157658;
     opacity: 0.5;
-    color: #FFF;
+    color:#FFF;
     display: flex;
-    flex-direction: row;
     align-items: center;
-    justify-content: center;
 }
 
 .image-stock-pinch{
-    position: absolute;
-    width: 100%;
+    width: 160rpx;
     height: 30rpx;
+    position: absolute;
+    bottom: 0;
     background-color: #157658;
     opacity: 0.7;
-    border-radius: 4rpx;
-    color: #FFF;
     font-size: 22rpx;
-    bottom: 0;
+    border-radius: 4rpx;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
 }
 
-.image-stock-pinch text{
+.image-stock-pinch text {
     letter-spacing: 4rpx;
 }
-.right{
+
+.left {
+    width: 100%;
+    height: 100%;
+}
+
+.right {
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex: 1;
     justify-content: space-between;
 }
 
@@ -90,15 +91,15 @@
 .discount-tag{
     margin-right: 16rpx;
     font-size: 18rpx;
-    padding-left: 0 6rpx;
+    padding: 0 6rpx;
     width: 36rpx !important;
-    flex-wrap: nowrap !important;
+    flex-wrap: nowrap;
 }
 
 .title{
-    font-weight: 400;
     font-size: 26rpx;
     color: #333;
+    font-weight: 400rpx;
     line-height: 40rpx;
 }
 
@@ -106,15 +107,15 @@
     line-height: 20rpx;
 }
 
-.spec text{
-    display: inline-flex;
+.spec text {
+    font-size: 20rpx;
     padding: 0 10rpx;
+    display: inline-flex;
     flex-direction: row;
     align-items: center;
     height: 36rpx;
-    background-color: #f3f33f3;
+    background-color: #F3F3F3;
     color: #999;
-    font-size: 20rpx;
 }
 
 .price-container{
@@ -126,17 +127,21 @@
 
 .sold-out{
     position: absolute;
+    width: 620rpx;
     height: 160rpx;
-    width: 630rpx;
 }
 
 .slide{
     width: 200rpx;
     height: 220rpx;
-    color: #FFF;
     background-color: #9E2731;
+    color: #FFF;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+
+.disabled{
+    opacity: 0.5;
 }

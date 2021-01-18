@@ -1,10 +1,5 @@
 function shortage(stock){
-    if (stock > 0 && stock < 10){
-        return true;
-    }
-    return false
+    return stock <= 10 && stock > 0;
 }
 
-module.exports = {
-    shortage: shortage
-}
+module.exports = { shortage: shortage }
