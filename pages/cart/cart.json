@@ -1,5 +1,6 @@
 {
   "usingComponents": {
-    "s-cart-item": "/components/cart-item/index"
+    "s-cart-item": "/components/cart-item/index",
+    "s-check-all-bar": "/components/check-all-bar/index"
   }
 }

@@ -1,26 +1,24 @@
-import {accAdd, accMultiply} from "../utils/number";
-
-class Calculator{
-    totalPrice = 0;
-    totalSkuCount = 0;
-    cartItems = [];
+import { accAdd, accMultiply } from "../utils/number.js";
+class Calculator {
+    totalPrice = 0
+    totalSkuCount = 0
+    cartItems = []
 
     constructor(cartItems){
         this.cartItems = cartItems;
-
     }
-
+    
     calc(){
         this.cartItems.forEach(item => {
-            this.push(item);
+            const count = item.count;
+            let price = item.sku.price;
+            if (item.sku.discount_price){
+                price = item.sku.discount_price;
+            }
+            const partPrice = accMultiply(count, price);
+            this.totalPrice = accAdd(this.totalPrice, partPrice);
+            this.totalSkuCount += count;
         });
-    }
-
-    push(cartItem){
-        const price = cartItem.sku.discount_price ? cartItem.sku.discount_price : cartItem.sku.price;
-        const partTotalPrice = accMultiply(price, cartItem.count);
-        this.totalPrice = accAdd(this.totalPrice, partTotalPrice);
-        this.totalSkuCount += cartItem.count;
     }
 
     getTotalPrice(){

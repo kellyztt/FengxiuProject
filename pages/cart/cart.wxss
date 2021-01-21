@@ -1,1 +1,5 @@
 /* pages/cart/cart.wxss */
+.btn{
+    background-color: #157658 !important;
+    border-radius: 2rpx !important;
+}

@@ -45,7 +45,6 @@ Component({
           title: `最少需要购买${Cart.SKU_MIN_COUNT}件商品`
         });
       }
-      console.log(event);
     }
   }
 })

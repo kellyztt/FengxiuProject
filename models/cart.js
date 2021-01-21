@@ -34,7 +34,7 @@ class Cart{
 
     removeItem(cartId){
         const index = this._findEqualItemIndex(cartId);
-        if (index){
+        if (index !== null){
             const cartData = this._getCartData();
             cartData.items.splice(index, 1);
             this._refreshStorage();
@@ -54,8 +54,8 @@ class Cart{
     }
 
     findEqualItem(cartId){
-        const items = this._getCartData().items;
-        return items.find(item=>item.sku.id === cartId);
+        const cartItems = this._getCartData().items;        
+        return cartItems.find(item=>item.sku.id === cartId);
     }
 
     static isSoldOut(cartItem){
@@ -74,8 +74,41 @@ class Cart{
 
     replaceItemCount(id, newCount){
         const item = this.findEqualItem(id);
+        if (!item){
+            console.error("异常情况，更新CartItem中的数量不应当找不到相应数据");
+            return;
+        }
+        if (newCount < 1){
+            console.error("异常情况，CartItem的Count不可能小于1");
+            return;
+        }
         item.count = newCount;
+        if (item.count > Cart.SKU_MAX_COUNT){
+            item.count = Cart.SKU_MAX_COUNT;
+        }
         this._refreshStorage();
+    }
+
+    isAllChecked(){
+        const cartItems = this._getCartData().items;
+        return !cartItems.some(item => item.checked === false);
+    }
+
+    checkAll(checked){
+        const cartItems = this._getCartData().items;
+        cartItems.forEach(item => item.checked = checked);
+        this._refreshStorage();
+    }
+
+    getCheckedItems(){
+        const cartItems = this._getCartData().items;
+        const checkedItems = [];
+        cartItems.forEach(item => {
+            if (item.checked){
+                checkedItems.push(item);
+            }
+        });
+        return checkedItems;
     }
 
     _findEqualItemIndex(skuId){

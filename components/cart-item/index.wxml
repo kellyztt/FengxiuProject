@@ -1,7 +1,7 @@
 <!-- components/cart-item/index.wxml -->
 <wxs src="../../wxs/price.wxs" module="p"></wxs>
 <wxs src="../../wxs/stock.wxs" module="s"></wxs>
-<l-slide-view height="220" width="750" slide-width="200">
+<l-slide-view height="220" width="750" slide-width="200" wx:if="{{cartItem}}">
     <view class="container" slot="left">
         <view class="check-box">
             <s-check-box checked="{{cartItem.checked}}" bind:check="checkedItem"></s-check-box>

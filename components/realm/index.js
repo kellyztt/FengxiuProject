@@ -179,7 +179,8 @@ Component({
           icon: "none",
           duration: 3000,
           title: `请选择：${missKeys.join('，')}`,
-        })
+        });
+        return;
       }
       this._triggerShoppingEvent(judger.getDeterminateSku());
     },

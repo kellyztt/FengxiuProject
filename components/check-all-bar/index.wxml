@@ -1,0 +1,14 @@
+<!-- components/check-all-bar/index.wxml -->
+<view class="container">
+    <view class="data-container">
+        <view class="checkbox-container">
+            <s-check-box checked="{{allChecked}}"></s-check-box>
+            <text>全选</text>
+        </view>
+        <view class="price-container">
+            <text>合计</text>
+            <l-price value="{{totalPrice}}" color="#157658" count-size="32" unit-size="32"></l-price>
+        </view>
+    </view>
+    <view class="settlement-btn {{skuCount!==0?'':'disabled'}}">结算{{skuCount}}件</view>
+</view>

@@ -1,6 +1,12 @@
 <!--pages/cart/cart.wxml-->
 <view wx:if="{{!isEmpty}}" class="container">
     <block wx:for="{{cartItems}}" wx:key="index">
-        <s-cart-item cart-item="{{item}}" bind:itemdelete="onDelete"></s-cart-item> 
+        <s-cart-item cart-item="{{item}}" bind:itemdelete="onDelete" bind:itemcheck="onSingleCheck" bind:countfloat="onCountFloat"></s-cart-item> 
     </block>
+</view>
+<view wx:if="{{!isEmpty}}">
+    <s-check-all-bar bind:check="onCheckAll" all-checked="{{allChecked}}" total-price="{{totalPrice}}" skuCount="{{skuCount}}"></s-check-all-bar>
+</view>
+<view wx:else>
+    <l-status-show show button-text="去逛逛吧" describe="暂无相关商品" l-button-class="btn"></l-status-show>
 </view>

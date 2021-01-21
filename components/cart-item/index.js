@@ -48,7 +48,7 @@ Component({
    */
   methods: {
     checkedItem: function(event){
-      this.properties.cartItem.checked = !this.properties.cartItem.checkedItem;
+      this.properties.cartItem.checked = event.detail.checked
       cart.checkItem(this.properties.cartItem.sku.id);
       this.triggerEvent("itemcheck", {
 
