@@ -49,7 +49,6 @@ Page({
     historyKeywords.save(keyword);
     const paging = Search.search(keyword);
     const data = await paging.getMoreData();
-    console.log(data);
     this.bindItems(data);
     this.setData({
       historyTags: historyKeywords.get(),
